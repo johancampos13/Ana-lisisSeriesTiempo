@@ -1,0 +1,36 @@
+@page {
+  size: letter;
+  margin: 0.55in;
+}
+
+@media print {
+  body {
+    font-size: 9pt;
+    line-height: 1.2;
+  }
+
+  .main-container {
+    max-width: none !important;
+    width: auto !important;
+  }
+
+  h1.title {
+    font-size: 17pt;
+    margin-bottom: 0.25em;
+  }
+
+  h4.author,
+  h4.date {
+    font-size: 9pt;
+    margin: 0.2em 0;
+  }
+
+  h2 {
+    font-size: 12pt;
+    margin: 0.7em 0 0.35em;
+  }
+
+  p {
+    margin: 0 0 0.55em;
+  }
+}

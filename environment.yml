@@ -1,0 +1,8 @@
+name: series-tiempo
+channels:
+  - conda-forge
+dependencies:
+  - r-base
+  - r-bookdown
+  - r-rmarkdown
+  - pandoc

@@ -1,0 +1,23 @@
+---
+title: "Propuesta de pronóstico de ventas reales del comercio minorista en Colombia"
+author: "Johan Campos"
+date: "Octubre de 2026"
+output:
+  bookdown::html_document2:
+    toc: false
+    number_sections: false
+    self_contained: true
+    css: propuesta.css
+---
+
+## Propuesta
+
+El proyecto analizará y pronosticará el índice nacional mensual de ventas reales del comercio minorista en Colombia, publicado por el Departamento Administrativo Nacional de Estadística (DANE) en la Encuesta Mensual de Comercio (EMC). Se estudiarán su tendencia y estacionalidad y se producirán pronósticos de hasta doce meses, según la disponibilidad y calidad de los datos.
+
+**Pregunta:** ¿qué modelo de series de tiempo pronostica con mayor precisión este índice? Se compararán un modelo ingenuo estacional, suavizamiento exponencial (ETS) y ARIMA. La evaluación respetará el orden temporal: se reservará un periodo de prueba y se compararán los errores de pronóstico antes de estimar los doce meses siguientes.
+
+El pronóstico puede complementar indicadores de coyuntura útiles para planear inventarios y recursos. En el boletín de la EMC de agosto de 2026, el DANE reportó un crecimiento anual provisional de 7,3 % en las ventas reales del comercio minorista y vehículos. El proyecto aportará una comparación reproducible en R; sus resultados describirán un índice agregado nacional, no ventas monetarias ni el desempeño de una empresa.
+
+**Datos y método:** se utilizará el anexo de índices empalmados de agosto de 2026, verificando hoja, variable, cobertura y fecha de descarga. Fuentes: [EMC del DANE](https://www.dane.gov.co/index.php/estadisticas-por-tema/comercio-interno/encuesta-mensual-de-comercio-emc) y [metodología de la EMC](https://www.dane.gov.co/files/operaciones/EMC/met-EMC.pdf).
+
+La fuente es estadística pública; no se usarán datos personales ni información confidencial. Se reconocerá al DANE y se conservarán los metadatos. Antes de publicar los datos originales se verificarán sus condiciones de uso y redistribución; el repositorio incluirá el documento, el código y las instrucciones de reproducción.
