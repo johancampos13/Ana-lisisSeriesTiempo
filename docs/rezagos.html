@@ -4,23 +4,23 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Capítulo 4 Aproximación por rezagos | Pronóstico de ventas reales del comercio minorista en Colombia</title>
-  <meta name="description" content="Análisis y pronóstico del índice mensual de ventas reales del comercio minorista en Colombia (DANE, EMC). Maestría en Ciencia de Datos, Pontificia Universidad Javeriana Cali." />
+  <title>Capítulo 4 Rezagos | Pronóstico de ventas reales del comercio minorista en Colombia</title>
+  <meta name="description" content="Capítulo 4 Rezagos | Pronóstico de ventas reales del comercio minorista en Colombia" />
   <meta name="generator" content="bookdown 0.48 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Capítulo 4 Aproximación por rezagos | Pronóstico de ventas reales del comercio minorista en Colombia" />
+  <meta property="og:title" content="Capítulo 4 Rezagos | Pronóstico de ventas reales del comercio minorista en Colombia" />
   <meta property="og:type" content="book" />
   
-  <meta property="og:description" content="Análisis y pronóstico del índice mensual de ventas reales del comercio minorista en Colombia (DANE, EMC). Maestría en Ciencia de Datos, Pontificia Universidad Javeriana Cali." />
+  
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Capítulo 4 Aproximación por rezagos | Pronóstico de ventas reales del comercio minorista en Colombia" />
+  <meta name="twitter:title" content="Capítulo 4 Rezagos | Pronóstico de ventas reales del comercio minorista en Colombia" />
   
-  <meta name="twitter:description" content="Análisis y pronóstico del índice mensual de ventas reales del comercio minorista en Colombia (DANE, EMC). Maestría en Ciencia de Datos, Pontificia Universidad Javeriana Cali." />
+  
   
 
-<meta name="author" content="Johan Campos" />
+<meta name="author" content="Johan David Perdomo Campos" />
 
 
 
@@ -123,31 +123,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   
   div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 </style>
-<style type="text/css">
-/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
-  margin-bottom: 0em;
-}
-.hanging div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
-}
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
-}
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}
-</style>
 
-<link rel="stylesheet" href="libro.css" type="text/css" />
 </head>
 
 <body>
@@ -160,56 +136,26 @@ div.csl-indent {
       <nav role="navigation">
 
 <ul class="summary">
-<li><strong>Pronóstico de ventas minoristas</strong></li>
+<li><strong>Análisis de Series de Tiempo</strong></li>
 
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Presentación</a></li>
-<li class="chapter" data-level="1" data-path="propuesta-unidad-1.html"><a href="propuesta-unidad-1.html"><i class="fa fa-check"></i><b>1</b> Propuesta (Unidad 1)</a>
+<li class="chapter" data-level="1" data-path="propuesta-unidad-1.html"><a href="propuesta-unidad-1.html"><i class="fa fa-check"></i><b>1</b> Propuesta (Unidad 1)</a></li>
+<li class="chapter" data-level="2" data-path="datos.html"><a href="datos.html"><i class="fa fa-check"></i><b>2</b> Los datos</a></li>
+<li class="chapter" data-level="3" data-path="promedio-movil.html"><a href="promedio-movil.html"><i class="fa fa-check"></i><b>3</b> Promedio móvil</a></li>
+<li class="chapter" data-level="4" data-path="rezagos.html"><a href="rezagos.html"><i class="fa fa-check"></i><b>4</b> Rezagos</a>
 <ul>
-<li class="chapter" data-level="1.1" data-path="propuesta-unidad-1.html"><a href="propuesta-unidad-1.html#propuesta-y-justificaci%C3%B3n"><i class="fa fa-check"></i><b>1.1</b> Propuesta y justificación</a></li>
-<li class="chapter" data-level="1.2" data-path="propuesta-unidad-1.html"><a href="propuesta-unidad-1.html#datos-y-uso-de-la-informaci%C3%B3n"><i class="fa fa-check"></i><b>1.2</b> Datos y uso de la información</a></li>
+<li class="chapter" data-level="4.1" data-path="rezagos.html"><a href="rezagos.html#gr%C3%A1fico-de-rezagos"><i class="fa fa-check"></i><b>4.1</b> Gráfico de rezagos</a></li>
+<li class="chapter" data-level="4.2" data-path="rezagos.html"><a href="rezagos.html#autocorrelaci%C3%B3n"><i class="fa fa-check"></i><b>4.2</b> Autocorrelación</a></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="datos.html"><a href="datos.html"><i class="fa fa-check"></i><b>2</b> Los datos</a>
+<li class="chapter" data-level="5" data-path="estacionalidad.html"><a href="estacionalidad.html"><i class="fa fa-check"></i><b>5</b> Estacionalidad</a>
 <ul>
-<li class="chapter" data-level="2.1" data-path="datos.html"><a href="datos.html#origen-y-variable-de-trabajo"><i class="fa fa-check"></i><b>2.1</b> Origen y variable de trabajo</a></li>
+<li class="chapter" data-level="5.1" data-path="estacionalidad.html"><a href="estacionalidad.html#gr%C3%A1fico-estacional"><i class="fa fa-check"></i><b>5.1</b> Gráfico estacional</a></li>
+<li class="chapter" data-level="5.2" data-path="estacionalidad.html"><a href="estacionalidad.html#subseries-por-mes"><i class="fa fa-check"></i><b>5.2</b> Subseries por mes</a></li>
+<li class="chapter" data-level="5.3" data-path="estacionalidad.html"><a href="estacionalidad.html#descomposici%C3%B3n"><i class="fa fa-check"></i><b>5.3</b> Descomposición</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="promedio-movil.html"><a href="promedio-movil.html"><i class="fa fa-check"></i><b>3</b> Aproximación por promedio móvil</a>
-<ul>
-<li class="chapter" data-level="3.1" data-path="promedio-movil.html"><a href="promedio-movil.html#idea"><i class="fa fa-check"></i><b>3.1</b> Idea</a></li>
-<li class="chapter" data-level="3.2" data-path="promedio-movil.html"><a href="promedio-movil.html#comparaci%C3%B3n-de-%C3%B3rdenes"><i class="fa fa-check"></i><b>3.2</b> Comparación de órdenes</a></li>
-<li class="chapter" data-level="3.3" data-path="promedio-movil.html"><a href="promedio-movil.html#tendencia-ciclo-y-ciclos-de-la-serie"><i class="fa fa-check"></i><b>3.3</b> Tendencia-ciclo y ciclos de la serie</a></li>
-<li class="chapter" data-level="3.4" data-path="promedio-movil.html"><a href="promedio-movil.html#componente-estacional-irregular"><i class="fa fa-check"></i><b>3.4</b> Componente estacional-irregular</a></li>
-</ul></li>
-<li class="chapter" data-level="4" data-path="rezagos.html"><a href="rezagos.html"><i class="fa fa-check"></i><b>4</b> Aproximación por rezagos</a>
-<ul>
-<li class="chapter" data-level="4.1" data-path="rezagos.html"><a href="rezagos.html#idea-1"><i class="fa fa-check"></i><b>4.1</b> Idea</a></li>
-<li class="chapter" data-level="4.2" data-path="rezagos.html"><a href="rezagos.html#gr%C3%A1ficos-de-rezagos"><i class="fa fa-check"></i><b>4.2</b> Gráficos de rezagos</a></li>
-<li class="chapter" data-level="4.3" data-path="rezagos.html"><a href="rezagos.html#autocorrelaci%C3%B3n-de-la-serie-en-niveles"><i class="fa fa-check"></i><b>4.3</b> Autocorrelación de la serie en niveles</a></li>
-<li class="chapter" data-level="4.4" data-path="rezagos.html"><a href="rezagos.html#autocorrelaci%C3%B3n-de-la-serie-diferenciada"><i class="fa fa-check"></i><b>4.4</b> Autocorrelación de la serie diferenciada</a></li>
-<li class="chapter" data-level="4.5" data-path="rezagos.html"><a href="rezagos.html#diferencia-estacional-y-orden-de-diferenciaci%C3%B3n"><i class="fa fa-check"></i><b>4.5</b> Diferencia estacional y orden de diferenciación</a></li>
-</ul></li>
-<li class="chapter" data-level="5" data-path="estacionalidad.html"><a href="estacionalidad.html"><i class="fa fa-check"></i><b>5</b> Aproximación a la estacionalidad</a>
-<ul>
-<li class="chapter" data-level="5.1" data-path="estacionalidad.html"><a href="estacionalidad.html#idea-2"><i class="fa fa-check"></i><b>5.1</b> Idea</a></li>
-<li class="chapter" data-level="5.2" data-path="estacionalidad.html"><a href="estacionalidad.html#gr%C3%A1fico-estacional"><i class="fa fa-check"></i><b>5.2</b> Gráfico estacional</a></li>
-<li class="chapter" data-level="5.3" data-path="estacionalidad.html"><a href="estacionalidad.html#subseries-mensuales"><i class="fa fa-check"></i><b>5.3</b> Subseries mensuales</a></li>
-<li class="chapter" data-level="5.4" data-path="estacionalidad.html"><a href="estacionalidad.html#distribuci%C3%B3n-por-mes"><i class="fa fa-check"></i><b>5.4</b> Distribución por mes</a></li>
-<li class="chapter" data-level="5.5" data-path="estacionalidad.html"><a href="estacionalidad.html#descomposici%C3%B3n-cl%C3%A1sica-multiplicativa"><i class="fa fa-check"></i><b>5.5</b> Descomposición clásica multiplicativa</a></li>
-<li class="chapter" data-level="5.6" data-path="estacionalidad.html"><a href="estacionalidad.html#descomposici%C3%B3n-stl"><i class="fa fa-check"></i><b>5.6</b> Descomposición STL</a></li>
-</ul></li>
-<li class="chapter" data-level="6" data-path="sintesis.html"><a href="sintesis.html"><i class="fa fa-check"></i><b>6</b> Síntesis de patrones y ciclos</a>
-<ul>
-<li class="chapter" data-level="6.1" data-path="sintesis.html"><a href="sintesis.html#implicaciones-para-el-pron%C3%B3stico-unidad-3"><i class="fa fa-check"></i><b>6.1</b> Implicaciones para el pronóstico (Unidad 3)</a></li>
-</ul></li>
-<li class="chapter" data-level="" data-path="fuentes-y-referencias.html"><a href="fuentes-y-referencias.html"><i class="fa fa-check"></i>Fuentes y referencias</a>
-<ul>
-<li class="chapter" data-level="" data-path="fuentes-y-referencias.html"><a href="fuentes-y-referencias.html#fuentes-de-informaci%C3%B3n"><i class="fa fa-check"></i>Fuentes de información</a></li>
-<li class="chapter" data-level="" data-path="fuentes-y-referencias.html"><a href="fuentes-y-referencias.html#herramientas"><i class="fa fa-check"></i>Herramientas</a></li>
-<li class="chapter" data-level="" data-path="fuentes-y-referencias.html"><a href="fuentes-y-referencias.html#bibliograf%C3%ADa"><i class="fa fa-check"></i>Bibliografía</a></li>
-</ul></li>
-<li class="divider"></li>
-<li><a href="https://github.com/johancampos13/Ana-lisisSeriesTiempo">Repositorio en GitHub</a></li>
-
+<li class="chapter" data-level="6" data-path="conclusiones.html"><a href="conclusiones.html"><i class="fa fa-check"></i><b>6</b> Conclusiones</a></li>
+<li class="chapter" data-level="" data-path="fuentes.html"><a href="fuentes.html"><i class="fa fa-check"></i>Fuentes</a></li>
 </ul>
 
       </nav>
@@ -228,126 +174,38 @@ div.csl-indent {
 
             <section class="normal" id="section-">
 <div id="rezagos" class="section level1 hasAnchor" number="4">
-<h1><span class="header-section-number">Capítulo 4</span> Aproximación por rezagos<a href="rezagos.html#rezagos" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<div id="idea-1" class="section level2 hasAnchor" number="4.1">
-<h2><span class="header-section-number">4.1</span> Idea<a href="rezagos.html#idea-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>El rezago de orden <span class="math inline">\(k\)</span> de una serie es la misma serie desplazada <span class="math inline">\(k\)</span> periodos: <span class="math inline">\(y_{t-k}\)</span>. Comparar <span class="math inline">\(y_t\)</span> con sus rezagos dice <strong>cuánta memoria tiene la serie</strong>, es decir, cuánto se parece el índice de un mes al de uno, dos o doce meses antes. Esta relación se mide con la <strong>función de autocorrelación</strong> (ACF):</p>
-<p><span class="math display" id="eq:acf">\[\begin{equation}
-r_k = \frac{\sum_{t=k+1}^{T} (y_t - \bar{y})(y_{t-k} - \bar{y})}{\sum_{t=1}^{T} (y_t - \bar{y})^2}.
-\tag{4.1}
-\end{equation}\]</span></p>
-<p>La <strong>autocorrelación parcial</strong> (PACF) mide la relación entre <span class="math inline">\(y_t\)</span> y <span class="math inline">\(y_{t-k}\)</span> una vez descontado el efecto de los rezagos intermedios. Las dos funciones se usan juntas para identificar modelos ARIMA en la siguiente unidad.</p>
-</div>
-<div id="gráficos-de-rezagos" class="section level2 hasAnchor" number="4.2">
-<h2><span class="header-section-number">4.2</span> Gráficos de rezagos<a href="rezagos.html#gr%C3%A1ficos-de-rezagos" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="rezagos.html#cb7-1" tabindex="-1"></a><span class="fu">gglagplot</span>(y, <span class="at">lags =</span> <span class="dv">12</span>, <span class="at">do.lines =</span> <span class="cn">FALSE</span>, <span class="at">colour =</span> <span class="cn">TRUE</span>) <span class="sc">+</span></span>
-<span id="cb7-2"><a href="rezagos.html#cb7-2" tabindex="-1"></a>  <span class="fu">scale_colour_viridis_d</span>(<span class="at">labels =</span> meses) <span class="sc">+</span></span>
-<span id="cb7-3"><a href="rezagos.html#cb7-3" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="fu">expression</span>(y[t<span class="sc">-</span>k]), <span class="at">y =</span> <span class="fu">expression</span>(y[t]), <span class="at">colour =</span> <span class="st">&quot;Mes&quot;</span>) <span class="sc">+</span></span>
-<span id="cb7-4"><a href="rezagos.html#cb7-4" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;bottom&quot;</span>)</span></code></pre></div>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:rezagos-dispersion"></span>
-<img src="pronostico-ventas-minoristas_files/figure-html/rezagos-dispersion-1.png" alt="Gráficos de rezagos: índice del mes $t$ (eje vertical) frente al índice del mes $t-k$ (eje horizontal), para $k = 1, \dots, 12$. Los colores identifican el mes." width="100%" />
+<h1><span class="header-section-number">Capítulo 4</span> Rezagos<a href="rezagos.html#rezagos" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Un rezago es el valor de la serie <em>k</em> meses antes. Comparar cada mes con sus rezagos muestra qué tanto depende el índice de lo que pasó antes. La función de autocorrelación (ACF) mide esa relación para cada rezago.</p>
+<div id="gráfico-de-rezagos" class="section level2 hasAnchor" number="4.1">
+<h2><span class="header-section-number">4.1</span> Gráfico de rezagos<a href="rezagos.html#gr%C3%A1fico-de-rezagos" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="rezagos.html#cb4-1" tabindex="-1"></a><span class="fu">gglagplot</span>(y, <span class="at">lags =</span> <span class="dv">12</span>, <span class="at">do.lines =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:lags"></span>
+<img src="pronostico-ventas-minoristas_files/figure-html/lags-1.png" alt="Índice de cada mes frente a su valor 1 a 12 meses antes." width="768" />
 <p class="caption">
-Figura 4.1: Gráficos de rezagos: índice del mes <span class="math inline">\(t\)</span> (eje vertical) frente al índice del mes <span class="math inline">\(t-k\)</span> (eje horizontal), para <span class="math inline">\(k = 1, \dots, 12\)</span>. Los colores identifican el mes.
+Figura 4.1: Índice de cada mes frente a su valor 1 a 12 meses antes.
 </p>
 </div>
-<p>En la Figura <a href="rezagos.html#fig:rezagos-dispersion">4.1</a>, si los puntos caen cerca de la diagonal, el índice se parece al de <span class="math inline">\(k\)</span> meses antes. Se observan dos cosas:</p>
-<ul>
-<li>En los rezagos <strong>1 a 11</strong> los puntos se ordenan en una banda positiva, por efecto de la tendencia. Pero la banda se abre por mes: los puntos de diciembre (amarillos) quedan siempre por encima, porque diciembre vende más que el mes con el que se compara.</li>
-<li>En el rezago <strong>12</strong> los puntos se ordenan casi sobre una línea. Cada mes se compara con el mismo mes del año anterior, y la diferencia estacional desaparece. Es la evidencia gráfica más directa de la estacionalidad anual.</li>
-</ul>
+<p>En la Figura <a href="rezagos.html#fig:lags">4.1</a> los puntos de diciembre quedan siempre por encima de la diagonal en los rezagos 1 a 11, porque diciembre vende más que los demás meses. En el rezago 12 los puntos casi forman una línea: cada mes se parece mucho al mismo mes del año anterior.</p>
 </div>
-<div id="autocorrelación-de-la-serie-en-niveles" class="section level2 hasAnchor" number="4.3">
-<h2><span class="header-section-number">4.3</span> Autocorrelación de la serie en niveles<a href="rezagos.html#autocorrelaci%C3%B3n-de-la-serie-en-niveles" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="rezagos.html#cb8-1" tabindex="-1"></a><span class="fu">ggAcf</span>(y, <span class="at">lag.max =</span> <span class="dv">36</span>) <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">title =</span> <span class="cn">NULL</span>, <span class="at">x =</span> <span class="st">&quot;Rezago (meses)&quot;</span>, <span class="at">y =</span> <span class="st">&quot;ACF&quot;</span>)</span></code></pre></div>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:acf-nivel"></span>
-<img src="pronostico-ventas-minoristas_files/figure-html/acf-nivel-1.png" alt="ACF de la serie original hasta el rezago 36. Las líneas punteadas son las bandas de significancia al 95 %." width="100%" />
+<div id="autocorrelación" class="section level2 hasAnchor" number="4.2">
+<h2><span class="header-section-number">4.2</span> Autocorrelación<a href="rezagos.html#autocorrelaci%C3%B3n" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="rezagos.html#cb5-1" tabindex="-1"></a><span class="fu">ggAcf</span>(y, <span class="at">lag.max =</span> <span class="dv">36</span>) <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;&quot;</span>)</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:acf"></span>
+<img src="pronostico-ventas-minoristas_files/figure-html/acf-1.png" alt="ACF del índice." width="768" />
 <p class="caption">
-Figura 4.2: ACF de la serie original hasta el rezago 36. Las líneas punteadas son las bandas de significancia al 95 %.
+Figura 4.2: ACF del índice.
 </p>
 </div>
-<p>La ACF de la Figura <a href="rezagos.html#fig:acf-nivel">4.2</a> <strong>decrece lentamente</strong>: <span class="math inline">\(r_1 =\)</span> 0,76 y sigue siendo significativa hasta el rezago 36. Ese descenso lento es típico de una serie con tendencia, es decir, <strong>no estacionaria en media</strong>. Sobre ese descenso se ven picos en los rezagos 12, 24 y 36 (<span class="math inline">\(r_{12} =\)</span> 0,71, <span class="math inline">\(r_{24} =\)</span> 0,52), que son la huella de la estacionalidad.</p>
-</div>
-<div id="autocorrelación-de-la-serie-diferenciada" class="section level2 hasAnchor" number="4.4">
-<h2><span class="header-section-number">4.4</span> Autocorrelación de la serie diferenciada<a href="rezagos.html#autocorrelaci%C3%B3n-de-la-serie-diferenciada" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Para retirar la tendencia se toma la primera diferencia, <span class="math inline">\(\Delta y_t = y_t - y_{t-1}\)</span>:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="rezagos.html#cb9-1" tabindex="-1"></a><span class="fu">ggAcf</span>(<span class="fu">diff</span>(y), <span class="at">lag.max =</span> <span class="dv">36</span>) <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">title =</span> <span class="cn">NULL</span>, <span class="at">x =</span> <span class="st">&quot;Rezago (meses)&quot;</span>, <span class="at">y =</span> <span class="st">&quot;ACF&quot;</span>)</span></code></pre></div>
+<p>La ACF de la Figura <a href="rezagos.html#fig:acf">4.2</a> baja lentamente (0,76 en el rezago 1), lo que indica que la serie tiene tendencia. Además tiene picos en los rezagos 12, 24 y 36, que corresponden a la estacionalidad anual.</p>
+<p>Para quitar la tendencia se toma la primera diferencia (cambio de un mes a otro):</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="rezagos.html#cb6-1" tabindex="-1"></a><span class="fu">ggAcf</span>(<span class="fu">diff</span>(y), <span class="at">lag.max =</span> <span class="dv">36</span>) <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;&quot;</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:acf-diff"></span>
-<img src="pronostico-ventas-minoristas_files/figure-html/acf-diff-1.png" alt="ACF de la primera diferencia de la serie." width="100%" />
+<img src="pronostico-ventas-minoristas_files/figure-html/acf-diff-1.png" alt="ACF de la primera diferencia del índice." width="768" />
 <p class="caption">
-Figura 4.3: ACF de la primera diferencia de la serie.
+Figura 4.3: ACF de la primera diferencia del índice.
 </p>
 </div>
-<p>Sin la tendencia, la estacionalidad domina (Figura <a href="rezagos.html#fig:acf-diff">4.3</a>). La autocorrelación en el rezago 12 es 0,83, y vuelve a ser alta en los rezagos 24 y 36. La variación de un mes respecto al anterior se repite casi igual cada año: el salto de noviembre a diciembre es grande y positivo, y el de diciembre a enero, grande y negativo.</p>
-</div>
-<div id="diferencia-estacional-y-orden-de-diferenciación" class="section level2 hasAnchor" number="4.5">
-<h2><span class="header-section-number">4.5</span> Diferencia estacional y orden de diferenciación<a href="rezagos.html#diferencia-estacional-y-orden-de-diferenciaci%C3%B3n" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="rezagos.html#cb10-1" tabindex="-1"></a>d  <span class="ot">&lt;-</span> <span class="fu">ndiffs</span>(y)    <span class="co"># diferencias regulares sugeridas (prueba KPSS)</span></span>
-<span id="cb10-2"><a href="rezagos.html#cb10-2" tabindex="-1"></a>D  <span class="ot">&lt;-</span> <span class="fu">nsdiffs</span>(y)   <span class="co"># diferencias estacionales sugeridas (fuerza estacional)</span></span>
-<span id="cb10-3"><a href="rezagos.html#cb10-3" tabindex="-1"></a>z  <span class="ot">&lt;-</span> <span class="fu">diff</span>(<span class="fu">diff</span>(<span class="fu">log</span>(y), <span class="at">lag =</span> <span class="dv">12</span>))  <span class="co"># logaritmo, diferencia estacional y regular</span></span></code></pre></div>
-<p>Las pruebas automáticas de <code>forecast</code> sugieren <strong>1</strong> diferencia regular y <strong>1</strong> diferencia estacional. Se trabaja con el logaritmo porque la amplitud estacional crece con el nivel: así, la diferencia <span class="math inline">\(\Delta_{12} \log y_t\)</span> se interpreta aproximadamente como la tasa de crecimiento anual.</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="rezagos.html#cb11-1" tabindex="-1"></a>gridExtra<span class="sc">::</span><span class="fu">grid.arrange</span>(</span>
-<span id="cb11-2"><a href="rezagos.html#cb11-2" tabindex="-1"></a>  <span class="fu">ggAcf</span>(z, <span class="at">lag.max =</span> <span class="dv">36</span>) <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">title =</span> <span class="cn">NULL</span>, <span class="at">x =</span> <span class="st">&quot;Rezago (meses)&quot;</span>, <span class="at">y =</span> <span class="st">&quot;ACF&quot;</span>),</span>
-<span id="cb11-3"><a href="rezagos.html#cb11-3" tabindex="-1"></a>  <span class="fu">ggPacf</span>(z, <span class="at">lag.max =</span> <span class="dv">36</span>) <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">title =</span> <span class="cn">NULL</span>, <span class="at">x =</span> <span class="st">&quot;Rezago (meses)&quot;</span>, <span class="at">y =</span> <span class="st">&quot;PACF&quot;</span>),</span>
-<span id="cb11-4"><a href="rezagos.html#cb11-4" tabindex="-1"></a>  <span class="at">ncol =</span> <span class="dv">1</span></span>
-<span id="cb11-5"><a href="rezagos.html#cb11-5" tabindex="-1"></a>)</span></code></pre></div>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:acf-pacf-z"></span>
-<img src="pronostico-ventas-minoristas_files/figure-html/acf-pacf-z-1.png" alt="ACF y PACF de la serie transformada $\Delta\Delta_{12}\log y_t$." width="100%" />
-<p class="caption">
-Figura 4.4: ACF y PACF de la serie transformada <span class="math inline">\(\Delta\Delta_{12}\log y_t\)</span>.
-</p>
-</div>
-<p>Tras las dos diferencias (Figura <a href="rezagos.html#fig:acf-pacf-z">4.4</a>), la mayoría de autocorrelaciones queda dentro de la banda de ±0,16. Sobresale el <strong>rezago 12</strong>, con <span class="math inline">\(r_{12} =\)</span> -0,38 en la ACF. En la PACF, el valor en el rezago 12 (-0,37) se repite atenuado en el 24 (-0,27). Un pico negativo en el rezago estacional de la ACF, con una PACF que decae en los múltiplos de 12, es la firma de un componente <strong>media móvil estacional</strong>. El valor positivo en el rezago 13 (<span class="math inline">\(r_{13} =\)</span> 0,30) es la interacción esperada entre ese componente y la parte no estacional.</p>
-<p>También superan la banda los rezagos 2 (<span class="math inline">\(r_2 =\)</span> -0,25) y 9 (<span class="math inline">\(r_9 =\)</span> 0,26). Esto sugiere que la parte no estacional necesita algún término adicional. En conjunto, el patrón apunta a un modelo de la familia SARIMA<span class="math inline">\((p,1,q)(0,1,1)_{12}\)</span>, cuyo caso más simple es el <em>modelo de aerolínea</em>, <span class="math inline">\((0,1,1)(0,1,1)_{12}\)</span>. Los órdenes <span class="math inline">\(p\)</span> y <span class="math inline">\(q\)</span> se elegirán en la siguiente unidad con criterios de información y con el análisis de los residuos.</p>
-<table>
-<caption><span id="tab:tabla-acf">Tabla 4.1: </span>Autocorrelaciones en rezagos seleccionados según la transformación de la serie.</caption>
-<thead>
-<tr class="header">
-<th align="right">Rezago</th>
-<th align="right">Serie original</th>
-<th align="right">Primera diferencia</th>
-<th align="right">Δ Δ12 log</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="right">1</td>
-<td align="right">0,761</td>
-<td align="right">-0,324</td>
-<td align="right">-0,115</td>
-</tr>
-<tr class="even">
-<td align="right">2</td>
-<td align="right">0,665</td>
-<td align="right">-0,189</td>
-<td align="right">-0,252</td>
-</tr>
-<tr class="odd">
-<td align="right">3</td>
-<td align="right">0,655</td>
-<td align="right">0,088</td>
-<td align="right">-0,137</td>
-</tr>
-<tr class="even">
-<td align="right">6</td>
-<td align="right">0,530</td>
-<td align="right">-0,176</td>
-<td align="right">-0,068</td>
-</tr>
-<tr class="odd">
-<td align="right">12</td>
-<td align="right">0,706</td>
-<td align="right">0,833</td>
-<td align="right">-0,378</td>
-</tr>
-<tr class="even">
-<td align="right">24</td>
-<td align="right">0,515</td>
-<td align="right">0,733</td>
-<td align="right">-0,121</td>
-</tr>
-</tbody>
-</table>
-<p>La prueba de Ljung-Box confirma la lectura. Sobre la serie original, el estadístico con 24 rezagos es <span class="math inline">\(Q =\)</span> 1.083,7 (valor p &lt; 0,001): hay mucha estructura por modelar. En la serie transformada baja a <span class="math inline">\(Q =\)</span> 84,4 (valor p &lt; 0,001). Aunque las diferencias retiran la mayor parte de la dependencia, la correlación remanente en el rezago 12 todavía es significativa. Esa correlación es la que deberá recoger el componente estacional del modelo.</p>
+<p>Sin la tendencia, la estacionalidad se ve con más claridad (Figura <a href="rezagos.html#fig:acf-diff">4.3</a>): la autocorrelación en el rezago 12 es 0,83. Es decir, el cambio de un mes a otro se repite casi igual cada año.</p>
 
 </div>
 </div>
@@ -377,7 +235,10 @@ gitbook.start({
     "family": "sans",
     "size": 2
   },
-  "edit": null,
+  "edit": {
+    "link": null,
+    "text": null
+  },
   "history": {
     "link": null,
     "text": null
@@ -398,20 +259,6 @@ gitbook.start({
 });
 </script>
 
-<!-- dynamically load mathjax for compatibility with self-contained -->
-<script>
-  (function () {
-    var script = document.createElement("script");
-    script.type = "text/javascript";
-    var src = "true";
-    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:")
-      if (/^https?:/.test(src))
-        src = src.replace(/^https?:/, '');
-    script.src = src;
-    document.getElementsByTagName("head")[0].appendChild(script);
-  })();
-</script>
 </body>
 
 </html>

@@ -1,14 +1,8 @@
 bookdown::gitbook:
-  css: libro.css
   split_by: chapter
-  split_bib: false
   config:
     toc:
       before: |
-        <li><strong>Pronóstico de ventas minoristas</strong></li>
-      after: |
-        <li><a href="https://github.com/johancampos13/Ana-lisisSeriesTiempo">Repositorio en GitHub</a></li>
+        <li><strong>Análisis de Series de Tiempo</strong></li>
     download: null
     sharing: null
-    edit: null
-    search: true

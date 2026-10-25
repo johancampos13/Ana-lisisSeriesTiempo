@@ -4,23 +4,23 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Capítulo 3 Aproximación por promedio móvil | Pronóstico de ventas reales del comercio minorista en Colombia</title>
-  <meta name="description" content="Análisis y pronóstico del índice mensual de ventas reales del comercio minorista en Colombia (DANE, EMC). Maestría en Ciencia de Datos, Pontificia Universidad Javeriana Cali." />
+  <title>Capítulo 3 Promedio móvil | Pronóstico de ventas reales del comercio minorista en Colombia</title>
+  <meta name="description" content="Capítulo 3 Promedio móvil | Pronóstico de ventas reales del comercio minorista en Colombia" />
   <meta name="generator" content="bookdown 0.48 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Capítulo 3 Aproximación por promedio móvil | Pronóstico de ventas reales del comercio minorista en Colombia" />
+  <meta property="og:title" content="Capítulo 3 Promedio móvil | Pronóstico de ventas reales del comercio minorista en Colombia" />
   <meta property="og:type" content="book" />
   
-  <meta property="og:description" content="Análisis y pronóstico del índice mensual de ventas reales del comercio minorista en Colombia (DANE, EMC). Maestría en Ciencia de Datos, Pontificia Universidad Javeriana Cali." />
+  
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Capítulo 3 Aproximación por promedio móvil | Pronóstico de ventas reales del comercio minorista en Colombia" />
+  <meta name="twitter:title" content="Capítulo 3 Promedio móvil | Pronóstico de ventas reales del comercio minorista en Colombia" />
   
-  <meta name="twitter:description" content="Análisis y pronóstico del índice mensual de ventas reales del comercio minorista en Colombia (DANE, EMC). Maestría en Ciencia de Datos, Pontificia Universidad Javeriana Cali." />
+  
   
 
-<meta name="author" content="Johan Campos" />
+<meta name="author" content="Johan David Perdomo Campos" />
 
 
 
@@ -123,31 +123,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   
   div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 </style>
-<style type="text/css">
-/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
-  margin-bottom: 0em;
-}
-.hanging div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
-}
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
-}
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}
-</style>
 
-<link rel="stylesheet" href="libro.css" type="text/css" />
 </head>
 
 <body>
@@ -160,56 +136,26 @@ div.csl-indent {
       <nav role="navigation">
 
 <ul class="summary">
-<li><strong>Pronóstico de ventas minoristas</strong></li>
+<li><strong>Análisis de Series de Tiempo</strong></li>
 
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Presentación</a></li>
-<li class="chapter" data-level="1" data-path="propuesta-unidad-1.html"><a href="propuesta-unidad-1.html"><i class="fa fa-check"></i><b>1</b> Propuesta (Unidad 1)</a>
+<li class="chapter" data-level="1" data-path="propuesta-unidad-1.html"><a href="propuesta-unidad-1.html"><i class="fa fa-check"></i><b>1</b> Propuesta (Unidad 1)</a></li>
+<li class="chapter" data-level="2" data-path="datos.html"><a href="datos.html"><i class="fa fa-check"></i><b>2</b> Los datos</a></li>
+<li class="chapter" data-level="3" data-path="promedio-movil.html"><a href="promedio-movil.html"><i class="fa fa-check"></i><b>3</b> Promedio móvil</a></li>
+<li class="chapter" data-level="4" data-path="rezagos.html"><a href="rezagos.html"><i class="fa fa-check"></i><b>4</b> Rezagos</a>
 <ul>
-<li class="chapter" data-level="1.1" data-path="propuesta-unidad-1.html"><a href="propuesta-unidad-1.html#propuesta-y-justificaci%C3%B3n"><i class="fa fa-check"></i><b>1.1</b> Propuesta y justificación</a></li>
-<li class="chapter" data-level="1.2" data-path="propuesta-unidad-1.html"><a href="propuesta-unidad-1.html#datos-y-uso-de-la-informaci%C3%B3n"><i class="fa fa-check"></i><b>1.2</b> Datos y uso de la información</a></li>
+<li class="chapter" data-level="4.1" data-path="rezagos.html"><a href="rezagos.html#gr%C3%A1fico-de-rezagos"><i class="fa fa-check"></i><b>4.1</b> Gráfico de rezagos</a></li>
+<li class="chapter" data-level="4.2" data-path="rezagos.html"><a href="rezagos.html#autocorrelaci%C3%B3n"><i class="fa fa-check"></i><b>4.2</b> Autocorrelación</a></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="datos.html"><a href="datos.html"><i class="fa fa-check"></i><b>2</b> Los datos</a>
+<li class="chapter" data-level="5" data-path="estacionalidad.html"><a href="estacionalidad.html"><i class="fa fa-check"></i><b>5</b> Estacionalidad</a>
 <ul>
-<li class="chapter" data-level="2.1" data-path="datos.html"><a href="datos.html#origen-y-variable-de-trabajo"><i class="fa fa-check"></i><b>2.1</b> Origen y variable de trabajo</a></li>
+<li class="chapter" data-level="5.1" data-path="estacionalidad.html"><a href="estacionalidad.html#gr%C3%A1fico-estacional"><i class="fa fa-check"></i><b>5.1</b> Gráfico estacional</a></li>
+<li class="chapter" data-level="5.2" data-path="estacionalidad.html"><a href="estacionalidad.html#subseries-por-mes"><i class="fa fa-check"></i><b>5.2</b> Subseries por mes</a></li>
+<li class="chapter" data-level="5.3" data-path="estacionalidad.html"><a href="estacionalidad.html#descomposici%C3%B3n"><i class="fa fa-check"></i><b>5.3</b> Descomposición</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="promedio-movil.html"><a href="promedio-movil.html"><i class="fa fa-check"></i><b>3</b> Aproximación por promedio móvil</a>
-<ul>
-<li class="chapter" data-level="3.1" data-path="promedio-movil.html"><a href="promedio-movil.html#idea"><i class="fa fa-check"></i><b>3.1</b> Idea</a></li>
-<li class="chapter" data-level="3.2" data-path="promedio-movil.html"><a href="promedio-movil.html#comparaci%C3%B3n-de-%C3%B3rdenes"><i class="fa fa-check"></i><b>3.2</b> Comparación de órdenes</a></li>
-<li class="chapter" data-level="3.3" data-path="promedio-movil.html"><a href="promedio-movil.html#tendencia-ciclo-y-ciclos-de-la-serie"><i class="fa fa-check"></i><b>3.3</b> Tendencia-ciclo y ciclos de la serie</a></li>
-<li class="chapter" data-level="3.4" data-path="promedio-movil.html"><a href="promedio-movil.html#componente-estacional-irregular"><i class="fa fa-check"></i><b>3.4</b> Componente estacional-irregular</a></li>
-</ul></li>
-<li class="chapter" data-level="4" data-path="rezagos.html"><a href="rezagos.html"><i class="fa fa-check"></i><b>4</b> Aproximación por rezagos</a>
-<ul>
-<li class="chapter" data-level="4.1" data-path="rezagos.html"><a href="rezagos.html#idea-1"><i class="fa fa-check"></i><b>4.1</b> Idea</a></li>
-<li class="chapter" data-level="4.2" data-path="rezagos.html"><a href="rezagos.html#gr%C3%A1ficos-de-rezagos"><i class="fa fa-check"></i><b>4.2</b> Gráficos de rezagos</a></li>
-<li class="chapter" data-level="4.3" data-path="rezagos.html"><a href="rezagos.html#autocorrelaci%C3%B3n-de-la-serie-en-niveles"><i class="fa fa-check"></i><b>4.3</b> Autocorrelación de la serie en niveles</a></li>
-<li class="chapter" data-level="4.4" data-path="rezagos.html"><a href="rezagos.html#autocorrelaci%C3%B3n-de-la-serie-diferenciada"><i class="fa fa-check"></i><b>4.4</b> Autocorrelación de la serie diferenciada</a></li>
-<li class="chapter" data-level="4.5" data-path="rezagos.html"><a href="rezagos.html#diferencia-estacional-y-orden-de-diferenciaci%C3%B3n"><i class="fa fa-check"></i><b>4.5</b> Diferencia estacional y orden de diferenciación</a></li>
-</ul></li>
-<li class="chapter" data-level="5" data-path="estacionalidad.html"><a href="estacionalidad.html"><i class="fa fa-check"></i><b>5</b> Aproximación a la estacionalidad</a>
-<ul>
-<li class="chapter" data-level="5.1" data-path="estacionalidad.html"><a href="estacionalidad.html#idea-2"><i class="fa fa-check"></i><b>5.1</b> Idea</a></li>
-<li class="chapter" data-level="5.2" data-path="estacionalidad.html"><a href="estacionalidad.html#gr%C3%A1fico-estacional"><i class="fa fa-check"></i><b>5.2</b> Gráfico estacional</a></li>
-<li class="chapter" data-level="5.3" data-path="estacionalidad.html"><a href="estacionalidad.html#subseries-mensuales"><i class="fa fa-check"></i><b>5.3</b> Subseries mensuales</a></li>
-<li class="chapter" data-level="5.4" data-path="estacionalidad.html"><a href="estacionalidad.html#distribuci%C3%B3n-por-mes"><i class="fa fa-check"></i><b>5.4</b> Distribución por mes</a></li>
-<li class="chapter" data-level="5.5" data-path="estacionalidad.html"><a href="estacionalidad.html#descomposici%C3%B3n-cl%C3%A1sica-multiplicativa"><i class="fa fa-check"></i><b>5.5</b> Descomposición clásica multiplicativa</a></li>
-<li class="chapter" data-level="5.6" data-path="estacionalidad.html"><a href="estacionalidad.html#descomposici%C3%B3n-stl"><i class="fa fa-check"></i><b>5.6</b> Descomposición STL</a></li>
-</ul></li>
-<li class="chapter" data-level="6" data-path="sintesis.html"><a href="sintesis.html"><i class="fa fa-check"></i><b>6</b> Síntesis de patrones y ciclos</a>
-<ul>
-<li class="chapter" data-level="6.1" data-path="sintesis.html"><a href="sintesis.html#implicaciones-para-el-pron%C3%B3stico-unidad-3"><i class="fa fa-check"></i><b>6.1</b> Implicaciones para el pronóstico (Unidad 3)</a></li>
-</ul></li>
-<li class="chapter" data-level="" data-path="fuentes-y-referencias.html"><a href="fuentes-y-referencias.html"><i class="fa fa-check"></i>Fuentes y referencias</a>
-<ul>
-<li class="chapter" data-level="" data-path="fuentes-y-referencias.html"><a href="fuentes-y-referencias.html#fuentes-de-informaci%C3%B3n"><i class="fa fa-check"></i>Fuentes de información</a></li>
-<li class="chapter" data-level="" data-path="fuentes-y-referencias.html"><a href="fuentes-y-referencias.html#herramientas"><i class="fa fa-check"></i>Herramientas</a></li>
-<li class="chapter" data-level="" data-path="fuentes-y-referencias.html"><a href="fuentes-y-referencias.html#bibliograf%C3%ADa"><i class="fa fa-check"></i>Bibliografía</a></li>
-</ul></li>
-<li class="divider"></li>
-<li><a href="https://github.com/johancampos13/Ana-lisisSeriesTiempo">Repositorio en GitHub</a></li>
-
+<li class="chapter" data-level="6" data-path="conclusiones.html"><a href="conclusiones.html"><i class="fa fa-check"></i><b>6</b> Conclusiones</a></li>
+<li class="chapter" data-level="" data-path="fuentes.html"><a href="fuentes.html"><i class="fa fa-check"></i>Fuentes</a></li>
 </ul>
 
       </nav>
@@ -228,100 +174,32 @@ div.csl-indent {
 
             <section class="normal" id="section-">
 <div id="promedio-movil" class="section level1 hasAnchor" number="3">
-<h1><span class="header-section-number">Capítulo 3</span> Aproximación por promedio móvil<a href="promedio-movil.html#promedio-movil" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<div id="idea" class="section level2 hasAnchor" number="3.1">
-<h2><span class="header-section-number">3.1</span> Idea<a href="promedio-movil.html#idea" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Un promedio móvil reemplaza cada observación por el promedio de las observaciones vecinas. Al promediar, se suavizan las fluctuaciones de corto plazo y queda a la vista el componente de <strong>tendencia-ciclo</strong>. El promedio móvil centrado de orden <span class="math inline">\(m = 2k + 1\)</span> es</p>
-<p><span class="math display" id="eq:ma">\[\begin{equation}
-\hat{T}_t = \frac{1}{m} \sum_{j=-k}^{k} y_{t+j}.
-\tag{3.1}
-\end{equation}\]</span></p>
-<p>Cuando el orden es par, como <span class="math inline">\(m = 12\)</span> en datos mensuales, el promedio no queda centrado en un mes. Se aplica entonces un segundo promedio de orden 2, lo que da el promedio <strong>2×12</strong>:</p>
-<p><span class="math display" id="eq:ma212">\[\begin{equation}
-\hat{T}_t = \tfrac{1}{24} y_{t-6} + \tfrac{1}{12}\left(y_{t-5} + \dots + y_{t+5}\right) + \tfrac{1}{24} y_{t+6}.
-\tag{3.2}
-\end{equation}\]</span></p>
-<p>El 2×12 da el mismo peso a los doce meses del año, por lo que <strong>elimina la estacionalidad anual</strong> y conserva solo la tendencia-ciclo <span class="citation">(<a href="fuentes-y-referencias.html#ref-hyndman2021fpp3">Hyndman &amp; Athanasopoulos, 2021, Capítulo 3</a>)</span>. En R se calcula con <code>forecast::ma()</code>, que centra automáticamente los órdenes pares.</p>
-</div>
-<div id="comparación-de-órdenes" class="section level2 hasAnchor" number="3.2">
-<h2><span class="header-section-number">3.2</span> Comparación de órdenes<a href="promedio-movil.html#comparaci%C3%B3n-de-%C3%B3rdenes" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="promedio-movil.html#cb3-1" tabindex="-1"></a>ma3  <span class="ot">&lt;-</span> <span class="fu">ma</span>(y, <span class="at">order =</span> <span class="dv">3</span>)</span>
-<span id="cb3-2"><a href="promedio-movil.html#cb3-2" tabindex="-1"></a>ma6  <span class="ot">&lt;-</span> <span class="fu">ma</span>(y, <span class="at">order =</span> <span class="dv">6</span>)</span>
-<span id="cb3-3"><a href="promedio-movil.html#cb3-3" tabindex="-1"></a>ma12 <span class="ot">&lt;-</span> <span class="fu">ma</span>(y, <span class="at">order =</span> <span class="dv">12</span>)  <span class="co"># orden par: ma() aplica el promedio 2x12 centrado</span></span></code></pre></div>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="promedio-movil.html#cb4-1" tabindex="-1"></a>ordenes <span class="ot">&lt;-</span> <span class="fu">rbind</span>(</span>
-<span id="cb4-2"><a href="promedio-movil.html#cb4-2" tabindex="-1"></a>  <span class="fu">data.frame</span>(<span class="at">fecha =</span> <span class="fu">as.numeric</span>(<span class="fu">time</span>(y)), <span class="at">y =</span> <span class="fu">as.numeric</span>(y), <span class="at">ma =</span> <span class="fu">as.numeric</span>(ma3),  <span class="at">orden =</span> <span class="st">&quot;Orden 3&quot;</span>),</span>
-<span id="cb4-3"><a href="promedio-movil.html#cb4-3" tabindex="-1"></a>  <span class="fu">data.frame</span>(<span class="at">fecha =</span> <span class="fu">as.numeric</span>(<span class="fu">time</span>(y)), <span class="at">y =</span> <span class="fu">as.numeric</span>(y), <span class="at">ma =</span> <span class="fu">as.numeric</span>(ma6),  <span class="at">orden =</span> <span class="st">&quot;Orden 6&quot;</span>),</span>
-<span id="cb4-4"><a href="promedio-movil.html#cb4-4" tabindex="-1"></a>  <span class="fu">data.frame</span>(<span class="at">fecha =</span> <span class="fu">as.numeric</span>(<span class="fu">time</span>(y)), <span class="at">y =</span> <span class="fu">as.numeric</span>(y), <span class="at">ma =</span> <span class="fu">as.numeric</span>(ma12), <span class="at">orden =</span> <span class="st">&quot;Orden 2×12&quot;</span>)</span>
-<span id="cb4-5"><a href="promedio-movil.html#cb4-5" tabindex="-1"></a>)</span>
-<span id="cb4-6"><a href="promedio-movil.html#cb4-6" tabindex="-1"></a>ordenes<span class="sc">$</span>orden <span class="ot">&lt;-</span> <span class="fu">factor</span>(ordenes<span class="sc">$</span>orden, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;Orden 3&quot;</span>, <span class="st">&quot;Orden 6&quot;</span>, <span class="st">&quot;Orden 2×12&quot;</span>))</span>
-<span id="cb4-7"><a href="promedio-movil.html#cb4-7" tabindex="-1"></a></span>
-<span id="cb4-8"><a href="promedio-movil.html#cb4-8" tabindex="-1"></a><span class="fu">ggplot</span>(ordenes, <span class="fu">aes</span>(fecha)) <span class="sc">+</span></span>
-<span id="cb4-9"><a href="promedio-movil.html#cb4-9" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> y), <span class="at">colour =</span> <span class="st">&quot;grey70&quot;</span>) <span class="sc">+</span></span>
-<span id="cb4-10"><a href="promedio-movil.html#cb4-10" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> ma), <span class="at">colour =</span> naranja, <span class="at">linewidth =</span> <span class="fl">0.8</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">+</span></span>
-<span id="cb4-11"><a href="promedio-movil.html#cb4-11" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>orden, <span class="at">ncol =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb4-12"><a href="promedio-movil.html#cb4-12" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="st">&quot;Índice (2019 = 100)&quot;</span>)</span></code></pre></div>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:ma-ordenes"></span>
-<img src="pronostico-ventas-minoristas_files/figure-html/ma-ordenes-1.png" alt="Serie original (gris) y promedios móviles centrados de orden 3, 6 y 2×12." width="100%" />
+<h1><span class="header-section-number">Capítulo 3</span> Promedio móvil<a href="promedio-movil.html#promedio-movil" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Un promedio móvil de orden <em>m</em> reemplaza cada mes por el promedio de los <em>m</em> meses alrededor de él. Así se suavizan las subidas y bajadas de corto plazo y se ve mejor la tendencia. Si el orden es 12, el promedio incluye un año completo y la estacionalidad se cancela.</p>
+<p>Se calculan promedios de orden 3, 6 y 12 con la función <code>ma()</code>:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="promedio-movil.html#cb3-1" tabindex="-1"></a><span class="fu">autoplot</span>(y, <span class="at">series =</span> <span class="st">&quot;Original&quot;</span>) <span class="sc">+</span></span>
+<span id="cb3-2"><a href="promedio-movil.html#cb3-2" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">ma</span>(y, <span class="dv">3</span>), <span class="at">series =</span> <span class="st">&quot;MA 3&quot;</span>) <span class="sc">+</span></span>
+<span id="cb3-3"><a href="promedio-movil.html#cb3-3" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">ma</span>(y, <span class="dv">6</span>), <span class="at">series =</span> <span class="st">&quot;MA 6&quot;</span>) <span class="sc">+</span></span>
+<span id="cb3-4"><a href="promedio-movil.html#cb3-4" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">ma</span>(y, <span class="dv">12</span>), <span class="at">series =</span> <span class="st">&quot;MA 12&quot;</span>) <span class="sc">+</span></span>
+<span id="cb3-5"><a href="promedio-movil.html#cb3-5" tabindex="-1"></a>  <span class="fu">scale_colour_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="at">Original =</span> <span class="st">&quot;grey70&quot;</span>, <span class="st">&quot;MA 3&quot;</span> <span class="ot">=</span> <span class="st">&quot;orange&quot;</span>,</span>
+<span id="cb3-6"><a href="promedio-movil.html#cb3-6" tabindex="-1"></a>                                 <span class="st">&quot;MA 6&quot;</span> <span class="ot">=</span> <span class="st">&quot;steelblue&quot;</span>, <span class="st">&quot;MA 12&quot;</span> <span class="ot">=</span> <span class="st">&quot;darkred&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb3-7"><a href="promedio-movil.html#cb3-7" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Año&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Índice&quot;</span>, <span class="at">colour =</span> <span class="st">&quot;&quot;</span>)</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:ma"></span>
+<img src="pronostico-ventas-minoristas_files/figure-html/ma-1.png" alt="Serie original y promedios móviles de orden 3, 6 y 12." width="768" />
 <p class="caption">
-Figura 3.1: Serie original (gris) y promedios móviles centrados de orden 3, 6 y 2×12.
+Figura 3.1: Serie original y promedios móviles de orden 3, 6 y 12.
 </p>
 </div>
-<p>La Figura <a href="promedio-movil.html#fig:ma-ordenes">3.1</a> muestra el efecto del orden:</p>
+<p>En la Figura <a href="promedio-movil.html#fig:ma">3.1</a> el promedio de orden 3 todavía sigue los picos de diciembre y el de orden 6 sigue ondulando cada año. El de orden 12 ya no tiene esos picos, lo que confirma que el ciclo estacional dura 12 meses.</p>
+<p>La línea del promedio de orden 12 muestra la tendencia de la serie y sus ciclos:</p>
 <ul>
-<li>Con <strong>orden 3</strong>, el promedio todavía sigue los picos de diciembre: tres meses no alcanzan a cubrir un ciclo estacional completo.</li>
-<li>Con <strong>orden 6</strong>, la curva es más suave, pero conserva una ondulación anual, porque medio año no promedia todos los meses del ciclo.</li>
-<li>Con <strong>orden 2×12</strong>, la ondulación desaparece y queda la tendencia-ciclo. Que la estacionalidad desaparezca justo con un orden de 12 meses confirma que <strong>el periodo estacional es anual</strong>.</li>
+<li>2013 a 2019: crecimiento constante.</li>
+<li>2020: caída por la pandemia.</li>
+<li>2021 y 2022: recuperación por encima del nivel de 2019.</li>
+<li>2023: caída (el promedio anual pasó de 119,7 a 113,9).</li>
+<li>2024 a 2026: nueva subida.</li>
 </ul>
-<p>El promedio centrado tiene un costo: no existe para los primeros ni para los últimos 6 meses, porque necesita datos de ambos lados. Es una herramienta descriptiva, no de pronóstico.</p>
-</div>
-<div id="tendencia-ciclo-y-ciclos-de-la-serie" class="section level2 hasAnchor" number="3.3">
-<h2><span class="header-section-number">3.3</span> Tendencia-ciclo y ciclos de la serie<a href="promedio-movil.html#tendencia-ciclo-y-ciclos-de-la-serie" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="promedio-movil.html#cb5-1" tabindex="-1"></a>tendencia <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">fecha =</span> <span class="fu">as.numeric</span>(<span class="fu">time</span>(y)), <span class="at">y =</span> <span class="fu">as.numeric</span>(y), <span class="at">t =</span> <span class="fu">as.numeric</span>(ma12))</span>
-<span id="cb5-2"><a href="promedio-movil.html#cb5-2" tabindex="-1"></a>periodos <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb5-3"><a href="promedio-movil.html#cb5-3" tabindex="-1"></a>  <span class="at">ini =</span> <span class="fu">c</span>(<span class="dv">2020</span> <span class="sc">+</span> <span class="dv">2</span><span class="sc">/</span><span class="dv">12</span>, <span class="dv">2023</span>), <span class="at">fin =</span> <span class="fu">c</span>(<span class="dv">2021</span>, <span class="dv">2024</span>),</span>
-<span id="cb5-4"><a href="promedio-movil.html#cb5-4" tabindex="-1"></a>  <span class="at">nombre =</span> <span class="fu">c</span>(<span class="st">&quot;COVID-19&quot;</span>, <span class="st">&quot;Desaceleración&quot;</span>)</span>
-<span id="cb5-5"><a href="promedio-movil.html#cb5-5" tabindex="-1"></a>)</span>
-<span id="cb5-6"><a href="promedio-movil.html#cb5-6" tabindex="-1"></a></span>
-<span id="cb5-7"><a href="promedio-movil.html#cb5-7" tabindex="-1"></a><span class="fu">ggplot</span>(tendencia, <span class="fu">aes</span>(fecha)) <span class="sc">+</span></span>
-<span id="cb5-8"><a href="promedio-movil.html#cb5-8" tabindex="-1"></a>  <span class="fu">geom_rect</span>(<span class="at">data =</span> periodos, <span class="fu">aes</span>(<span class="at">xmin =</span> ini, <span class="at">xmax =</span> fin, <span class="at">ymin =</span> <span class="sc">-</span><span class="cn">Inf</span>, <span class="at">ymax =</span> <span class="cn">Inf</span>),</span>
-<span id="cb5-9"><a href="promedio-movil.html#cb5-9" tabindex="-1"></a>            <span class="at">inherit.aes =</span> <span class="cn">FALSE</span>, <span class="at">fill =</span> <span class="st">&quot;grey85&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.6</span>) <span class="sc">+</span></span>
-<span id="cb5-10"><a href="promedio-movil.html#cb5-10" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="at">data =</span> periodos, <span class="fu">aes</span>(<span class="at">x =</span> (ini <span class="sc">+</span> fin) <span class="sc">/</span> <span class="dv">2</span>, <span class="at">y =</span> <span class="dv">165</span>, <span class="at">label =</span> nombre),</span>
-<span id="cb5-11"><a href="promedio-movil.html#cb5-11" tabindex="-1"></a>            <span class="at">inherit.aes =</span> <span class="cn">FALSE</span>, <span class="at">size =</span> <span class="fl">3.2</span>, <span class="at">colour =</span> <span class="st">&quot;grey30&quot;</span>) <span class="sc">+</span></span>
-<span id="cb5-12"><a href="promedio-movil.html#cb5-12" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> y), <span class="at">colour =</span> <span class="st">&quot;grey70&quot;</span>) <span class="sc">+</span></span>
-<span id="cb5-13"><a href="promedio-movil.html#cb5-13" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> t), <span class="at">colour =</span> azul, <span class="at">linewidth =</span> <span class="dv">1</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">+</span></span>
-<span id="cb5-14"><a href="promedio-movil.html#cb5-14" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="st">&quot;Índice (2019 = 100)&quot;</span>)</span></code></pre></div>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:ma-tendencia"></span>
-<img src="pronostico-ventas-minoristas_files/figure-html/ma-tendencia-1.png" alt="Tendencia-ciclo estimada con el promedio móvil 2×12 y periodos destacados." width="100%" />
-<p class="caption">
-Figura 3.2: Tendencia-ciclo estimada con el promedio móvil 2×12 y periodos destacados.
-</p>
-</div>
-<p>La tendencia-ciclo de la Figura <a href="promedio-movil.html#fig:ma-tendencia">3.2</a> permite distinguir varios <strong>ciclos</strong> en la serie:</p>
-<ul>
-<li><strong>2013–2019, crecimiento estable.</strong> La tendencia avanza en promedio 3,6 % por año.</li>
-<li><strong>2020, choque del COVID-19.</strong> El cierre de abril llevó el índice a 55,5. El promedio 2×12 reparte esa caída en varios meses, por lo que la tendencia baja menos que la serie. Es un choque puntual, no un cambio del patrón estacional.</li>
-<li><strong>2021–2022, rebote.</strong> La tendencia supera ampliamente su nivel de 2019.</li>
-<li><strong>2023, desaceleración.</strong> La tasa de crecimiento anual de la tendencia llega a -5,2 %, en un periodo de inflación y tasas de interés altas.</li>
-<li><strong>2024–2026, recuperación.</strong> La tendencia vuelve a crecer; en el último mes con promedio disponible (febrero de 2026), su variación anual es 9,8 %.</li>
-</ul>
-</div>
-<div id="componente-estacional-irregular" class="section level2 hasAnchor" number="3.4">
-<h2><span class="header-section-number">3.4</span> Componente estacional-irregular<a href="promedio-movil.html#componente-estacional-irregular" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Si la tendencia-ciclo se retira de la serie, queda la parte estacional y la irregular. Como la amplitud de los picos crece con el nivel (ver Figura <a href="datos.html#fig:serie">2.1</a>), conviene un esquema <strong>multiplicativo</strong> y calcular el cociente <span class="math inline">\(y_t / \hat{T}_t\)</span>:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="promedio-movil.html#cb6-1" tabindex="-1"></a>ratio <span class="ot">&lt;-</span> y <span class="sc">/</span> ma12</span>
-<span id="cb6-2"><a href="promedio-movil.html#cb6-2" tabindex="-1"></a></span>
-<span id="cb6-3"><a href="promedio-movil.html#cb6-3" tabindex="-1"></a><span class="fu">autoplot</span>(ratio, <span class="at">colour =</span> azul) <span class="sc">+</span></span>
-<span id="cb6-4"><a href="promedio-movil.html#cb6-4" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">1</span>, <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>, <span class="at">colour =</span> <span class="st">&quot;grey50&quot;</span>) <span class="sc">+</span></span>
-<span id="cb6-5"><a href="promedio-movil.html#cb6-5" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="st">&quot;Serie / tendencia&quot;</span>)</span></code></pre></div>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:ma-ratio"></span>
-<img src="pronostico-ventas-minoristas_files/figure-html/ma-ratio-1.png" alt="Cociente entre la serie y su promedio móvil 2×12. Los valores por encima de 1 indican meses que venden más que la tendencia." width="100%" />
-<p class="caption">
-Figura 3.3: Cociente entre la serie y su promedio móvil 2×12. Los valores por encima de 1 indican meses que venden más que la tendencia.
-</p>
-</div>
-<p>La Figura <a href="promedio-movil.html#fig:ma-ratio">3.3</a> deja ver el patrón que se analiza en el Capítulo <a href="estacionalidad.html#estacionalidad">5</a>: cada diciembre el cociente sube a cerca de 1,3 (unas ventas un 30 % por encima de la tendencia), y febrero y abril quedan casi siempre por debajo de 1. La única ruptura grande del patrón es la de 2020.</p>
 
-</div>
 </div>
             </section>
 
@@ -349,7 +227,10 @@ gitbook.start({
     "family": "sans",
     "size": 2
   },
-  "edit": null,
+  "edit": {
+    "link": null,
+    "text": null
+  },
   "history": {
     "link": null,
     "text": null
@@ -370,20 +251,6 @@ gitbook.start({
 });
 </script>
 
-<!-- dynamically load mathjax for compatibility with self-contained -->
-<script>
-  (function () {
-    var script = document.createElement("script");
-    script.type = "text/javascript";
-    var src = "true";
-    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:")
-      if (/^https?:/.test(src))
-        src = src.replace(/^https?:/, '');
-    script.src = src;
-    document.getElementsByTagName("head")[0].appendChild(script);
-  })();
-</script>
 </body>
 
 </html>

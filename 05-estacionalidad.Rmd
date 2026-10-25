@@ -1,113 +1,34 @@
-# Aproximación a la estacionalidad {#estacionalidad}
+# Estacionalidad
 
-## Idea
-
-La estacionalidad es un patrón que se repite con un periodo fijo y conocido. En esta serie el periodo es de 12 meses, como mostraron el promedio 2×12 (Capítulo \@ref(promedio-movil)) y el rezago 12 (Capítulo \@ref(rezagos)). En este capítulo se mide **qué meses** concentran las ventas, **cuánto** se apartan de la tendencia y **si el patrón es estable** en el tiempo.
+La estacionalidad es un patrón que se repite cada cierto periodo fijo; en este caso, cada año.
 
 ## Gráfico estacional
 
-```{r estacional, fig.height=4.8, fig.cap="Gráfico estacional: una línea por año, del más antiguo (claro) al más reciente (oscuro)."}
-por_anio <- data.frame(
-  anio = floor(as.numeric(time(y))),
-  mes = as.numeric(cycle(y)),
-  valor = as.numeric(y)
-)
-
-ggplot(por_anio, aes(mes, valor, group = anio, colour = anio)) +
-  geom_line() +
-  geom_text(data = subset(por_anio, mes == 12), aes(label = anio),
-            hjust = -0.2, size = 2.8, show.legend = FALSE) +
-  scale_colour_gradient(low = "#c6dbef", high = "#08306b", name = "Año") +
-  scale_x_continuous(breaks = 1:12, labels = meses, expand = expansion(add = c(0.3, 0.9))) +
-  labs(x = NULL, y = "Índice (2019 = 100)")
+```{r estacional, fig.cap="Índice por mes, una línea por año."}
+ggseasonplot(y, year.labels = TRUE) + labs(title = "", x = "Mes", y = "Índice")
 ```
 
-En la Figura \@ref(fig:estacional) todas las líneas tienen la misma forma: un mínimo en **febrero**, otro en **abril**, un nivel más alto en julio y agosto, una leve caída en septiembre, el ascenso de octubre y noviembre y un salto en **diciembre**. Las líneas se apilan hacia arriba año tras año (tendencia), salvo la de 2020, que se hunde en abril y mayo. La línea de 2023 queda por debajo de la de 2022 en `r sum(as.numeric(window(y, 2023, c(2023, 12))) < as.numeric(window(y, 2022, c(2022, 12))))` de los 12 meses, lo que coincide con la desaceleración del Capítulo \@ref(promedio-movil).
+Todas las líneas de la Figura \@ref(fig:estacional) tienen una forma parecida: febrero y abril son meses bajos, julio y agosto suben un poco, y diciembre es el mes más alto. La línea de 2020 es la única que se sale del patrón, con la caída de abril y mayo.
 
-## Subseries mensuales
+## Subseries por mes
 
-```{r subseries, fig.height=4, fig.cap="Subseries por mes: evolución de cada mes a lo largo de los años. La línea horizontal es el promedio del mes."}
-ggsubseriesplot(y) +
-  scale_x_continuous(breaks = seq(1.5, 12.5, 1), labels = meses) +
-  labs(title = NULL, x = NULL, y = "Índice (2019 = 100)")
+```{r subseries, fig.cap="Evolución de cada mes a lo largo de los años. La línea horizontal es el promedio del mes."}
+ggsubseriesplot(y) + labs(title = "", x = "Mes", y = "Índice")
 ```
 
-El gráfico de subseries (Figura \@ref(fig:subseries)) agrupa los datos de cada mes. La línea horizontal de diciembre está muy por encima de las demás, y todos los meses comparten la misma tendencia creciente: **la estacionalidad se suma a la tendencia, no la reemplaza**.
+La Figura \@ref(fig:subseries) confirma que diciembre tiene un promedio muy por encima del resto y que todos los meses crecen con los años.
 
-## Distribución por mes
+## Descomposición
 
-```{r cajas, fig.height=3.8, fig.cap="Distribución del cociente serie/tendencia (2×12) por mes, 2013–2026."}
-si <- data.frame(mes = factor(meses[cycle(ratio)], levels = meses), valor = as.numeric(ratio))
+La descomposición separa la serie en tendencia, componente estacional y resto. Se usa la forma multiplicativa porque los picos de diciembre se hacen más grandes a medida que sube el nivel de la serie.
 
-ggplot(na.omit(si), aes(mes, valor)) +
-  geom_hline(yintercept = 1, linetype = "dashed", colour = "grey50") +
-  geom_boxplot(fill = "#c6dbef", colour = azul, outlier.colour = naranja) +
-  labs(x = NULL, y = "Serie / tendencia")
-```
-
-Al usar el cociente serie/tendencia de la Sección \@ref(componente-estacional-irregular) se elimina la tendencia, y las cajas de la Figura \@ref(fig:cajas) muestran solo el efecto de cada mes. Las cajas son estrechas y diciembre no se superpone con ningún otro mes, lo que indica que **el patrón estacional es estable**. Los valores atípicos (en rojo) corresponden casi todos a 2020 y 2021, los años del choque y del rebote.
-
-## Descomposición clásica multiplicativa
-
-La descomposición clásica formaliza los pasos anteriores: estima la tendencia con el promedio 2×12, promedia el cociente serie/tendencia de cada mes para obtener los **índices estacionales** y deja el resto como componente irregular:
-
-\begin{equation}
-y_t = T_t \times S_t \times I_t.
-(\#eq:multiplicativa)
-\end{equation}
-
-```{r descomposicion, fig.height=6.5, fig.cap="Descomposición clásica multiplicativa del índice de ventas reales."}
+```{r desc, fig.height=6, fig.cap="Descomposición multiplicativa del índice."}
 desc <- decompose(y, type = "multiplicative")
-autoplot(desc) + labs(title = NULL, x = NULL)
+autoplot(desc) + labs(title = "", x = "Año")
 ```
 
-```{r indices, echo=FALSE}
-s_idx <- desc$figure
-orden <- order(s_idx, decreasing = TRUE)
-kable(
-  data.frame(
-    Mes = c("Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto",
-            "Septiembre", "Octubre", "Noviembre", "Diciembre"),
-    `Índice estacional` = num(s_idx, 3),
-    `Efecto frente a la tendencia (%)` = num(100 * (s_idx - 1), 1),
-    check.names = FALSE
-  ),
-  align = "lrr",
-  caption = "Índices estacionales de la descomposición clásica multiplicativa."
-)
+```{r}
+round(desc$figure, 3)
 ```
 
-Según la Tabla \@ref(tab:indices), **diciembre vende `r num(100 * (s_idx[12] - 1), 0)` % más que la tendencia**, por las primas de fin de año y la temporada navideña. Le sigue noviembre (`r num(100 * (s_idx[11] - 1), 1)` %), que recoge el inicio de la temporada y las jornadas de descuentos. En el otro extremo están **abril** (`r num(100 * (s_idx[4] - 1), 1)` %) y **febrero** (`r num(100 * (s_idx[2] - 1), 1)` %).
-
-```{r indices-pre, echo=FALSE}
-pre <- window(ratio, end = c(2019, 12))
-s_pre <- tapply(pre, cycle(pre), mean, na.rm = TRUE)
-```
-
-Esta descomposición tiene una limitación: supone índices estacionales fijos y promedia todos los años, incluido 2020. El índice de abril está arrastrado por el cierre de abril de 2020. Si se promedian solo los cocientes de 2013 a 2019, abril queda en `r num(100 * (s_pre[4] - 1), 1)` % y **febrero pasa a ser el mes más bajo** (`r num(100 * (s_pre[2] - 1), 1)` %), algo coherente con un mes más corto y con los gastos de inicio de año. Abril sigue por debajo de la tendencia porque allí cae con frecuencia la Semana Santa, que reduce los días hábiles. Por eso se complementa con una descomposición más robusta.
-
-## Descomposición STL
-
-La descomposición STL (*Seasonal and Trend decomposition using Loess*) estima tendencia y estacionalidad con regresiones locales. En su versión robusta reduce el peso de las observaciones atípicas, como las de 2020. Se aplica sobre el logaritmo para que el esquema multiplicativo quede aditivo:
-
-```{r stl, fig.height=6.5, fig.cap="Descomposición STL robusta del logaritmo del índice (ventana estacional de 13 meses)."}
-stl_y <- stl(log(y), s.window = 13, robust = TRUE)
-autoplot(stl_y) + labs(title = NULL, x = NULL)
-```
-
-```{r fuerza, echo=FALSE}
-comp <- stl_y$time.series
-resto <- comp[, "remainder"]
-F_s <- max(0, 1 - var(resto) / var(resto + comp[, "seasonal"]))
-F_t <- max(0, 1 - var(resto) / var(resto + comp[, "trend"]))
-s_ini <- exp(window(comp[, "seasonal"], 2013, c(2013, 12)))
-s_fin <- exp(window(comp[, "seasonal"], c(2025, 1), c(2025, 12)))
-```
-
-Con una ventana estacional de 13 meses, STL permite que el patrón cambie poco a poco. Aun así, el componente estacional de la Figura \@ref(fig:stl) es casi idéntico a lo largo de los años: el factor de diciembre pasa de `r num(s_ini[12], 3)` en 2013 a `r num(s_fin[12], 3)` en 2025. El choque de 2020 queda en el componente irregular (*remainder*) y no distorsiona la estacionalidad.
-
-Para resumir la importancia de cada componente se usan las medidas de fuerza de @hyndman2021fpp3 [sec. 4.3]:
-
-$$F_S = \max\left(0,\; 1 - \frac{\operatorname{Var}(R_t)}{\operatorname{Var}(S_t + R_t)}\right), \qquad F_T = \max\left(0,\; 1 - \frac{\operatorname{Var}(R_t)}{\operatorname{Var}(T_t + R_t)}\right).$$
-
-Se obtiene **fuerza estacional $F_S =$ `r num(F_s, 2)`** y **fuerza de tendencia $F_T =$ `r num(F_t, 2)`**. Ambas son altas, aunque el irregular de 2020 las reduce. El pronóstico deberá modelar **los dos componentes**.
+Los índices estacionales indican cuánto se aleja cada mes de la tendencia. Diciembre vende alrededor de 29 % más que la tendencia (1,288) y noviembre 5 % más (1,049). Los meses más bajos son abril (0,902) y febrero (0,923). El valor de abril sale más bajo por la caída de 2020, y también influye la Semana Santa, que suele caer en ese mes.

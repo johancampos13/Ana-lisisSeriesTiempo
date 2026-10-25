@@ -1,97 +1,27 @@
-# Aproximación por rezagos {#rezagos}
+# Rezagos
 
-## Idea
+Un rezago es el valor de la serie *k* meses antes. Comparar cada mes con sus rezagos muestra qué tanto depende el índice de lo que pasó antes. La función de autocorrelación (ACF) mide esa relación para cada rezago.
 
-El rezago de orden $k$ de una serie es la misma serie desplazada $k$ periodos: $y_{t-k}$. Comparar $y_t$ con sus rezagos dice **cuánta memoria tiene la serie**, es decir, cuánto se parece el índice de un mes al de uno, dos o doce meses antes. Esta relación se mide con la **función de autocorrelación** (ACF):
+## Gráfico de rezagos
 
-\begin{equation}
-r_k = \frac{\sum_{t=k+1}^{T} (y_t - \bar{y})(y_{t-k} - \bar{y})}{\sum_{t=1}^{T} (y_t - \bar{y})^2}.
-(\#eq:acf)
-\end{equation}
-
-La **autocorrelación parcial** (PACF) mide la relación entre $y_t$ y $y_{t-k}$ una vez descontado el efecto de los rezagos intermedios. Las dos funciones se usan juntas para identificar modelos ARIMA en la siguiente unidad.
-
-## Gráficos de rezagos
-
-```{r rezagos-dispersion, fig.height=7, fig.cap="Gráficos de rezagos: índice del mes $t$ (eje vertical) frente al índice del mes $t-k$ (eje horizontal), para $k = 1, \\dots, 12$. Los colores identifican el mes."}
-gglagplot(y, lags = 12, do.lines = FALSE, colour = TRUE) +
-  scale_colour_viridis_d(labels = meses) +
-  labs(x = expression(y[t-k]), y = expression(y[t]), colour = "Mes") +
-  theme(legend.position = "bottom")
+```{r lags, fig.height=6, fig.cap="Índice de cada mes frente a su valor 1 a 12 meses antes."}
+gglagplot(y, lags = 12, do.lines = FALSE)
 ```
 
-En la Figura \@ref(fig:rezagos-dispersion), si los puntos caen cerca de la diagonal, el índice se parece al de $k$ meses antes. Se observan dos cosas:
+En la Figura \@ref(fig:lags) los puntos de diciembre quedan siempre por encima de la diagonal en los rezagos 1 a 11, porque diciembre vende más que los demás meses. En el rezago 12 los puntos casi forman una línea: cada mes se parece mucho al mismo mes del año anterior.
 
-- En los rezagos **1 a 11** los puntos se ordenan en una banda positiva, por efecto de la tendencia. Pero la banda se abre por mes: los puntos de diciembre (amarillos) quedan siempre por encima, porque diciembre vende más que el mes con el que se compara.
-- En el rezago **12** los puntos se ordenan casi sobre una línea. Cada mes se compara con el mismo mes del año anterior, y la diferencia estacional desaparece. Es la evidencia gráfica más directa de la estacionalidad anual.
+## Autocorrelación
 
-## Autocorrelación de la serie en niveles
-
-```{r acf-nivel, fig.height=3.6, fig.cap="ACF de la serie original hasta el rezago 36. Las líneas punteadas son las bandas de significancia al 95 %."}
-ggAcf(y, lag.max = 36) + labs(title = NULL, x = "Rezago (meses)", y = "ACF")
+```{r acf, fig.cap="ACF del índice."}
+ggAcf(y, lag.max = 36) + labs(title = "")
 ```
 
-```{r acf-cifras, echo=FALSE}
-r <- acf(y, lag.max = 36, plot = FALSE)$acf[-1]
-d1 <- diff(y)
-r_d1 <- acf(d1, lag.max = 36, plot = FALSE)$acf[-1]
+La ACF de la Figura \@ref(fig:acf) baja lentamente (0,76 en el rezago 1), lo que indica que la serie tiene tendencia. Además tiene picos en los rezagos 12, 24 y 36, que corresponden a la estacionalidad anual.
+
+Para quitar la tendencia se toma la primera diferencia (cambio de un mes a otro):
+
+```{r acf-diff, fig.cap="ACF de la primera diferencia del índice."}
+ggAcf(diff(y), lag.max = 36) + labs(title = "")
 ```
 
-La ACF de la Figura \@ref(fig:acf-nivel) **decrece lentamente**: $r_1 =$ `r num(r[1], 2)` y sigue siendo significativa hasta el rezago 36. Ese descenso lento es típico de una serie con tendencia, es decir, **no estacionaria en media**. Sobre ese descenso se ven picos en los rezagos 12, 24 y 36 ($r_{12} =$ `r num(r[12], 2)`, $r_{24} =$ `r num(r[24], 2)`), que son la huella de la estacionalidad.
-
-## Autocorrelación de la serie diferenciada
-
-Para retirar la tendencia se toma la primera diferencia, $\Delta y_t = y_t - y_{t-1}$:
-
-```{r acf-diff, fig.height=3.6, fig.cap="ACF de la primera diferencia de la serie."}
-ggAcf(diff(y), lag.max = 36) + labs(title = NULL, x = "Rezago (meses)", y = "ACF")
-```
-
-Sin la tendencia, la estacionalidad domina (Figura \@ref(fig:acf-diff)). La autocorrelación en el rezago 12 es `r num(r_d1[12], 2)`, y vuelve a ser alta en los rezagos 24 y 36. La variación de un mes respecto al anterior se repite casi igual cada año: el salto de noviembre a diciembre es grande y positivo, y el de diciembre a enero, grande y negativo.
-
-## Diferencia estacional y orden de diferenciación
-
-```{r orden-diferencias}
-d  <- ndiffs(y)    # diferencias regulares sugeridas (prueba KPSS)
-D  <- nsdiffs(y)   # diferencias estacionales sugeridas (fuerza estacional)
-z  <- diff(diff(log(y), lag = 12))  # logaritmo, diferencia estacional y regular
-```
-
-Las pruebas automáticas de `forecast` sugieren **`r d`** diferencia regular y **`r D`** diferencia estacional. Se trabaja con el logaritmo porque la amplitud estacional crece con el nivel: así, la diferencia $\Delta_{12} \log y_t$ se interpreta aproximadamente como la tasa de crecimiento anual.
-
-```{r acf-pacf-z, fig.height=6.5, fig.cap="ACF y PACF de la serie transformada $\\Delta\\Delta_{12}\\log y_t$."}
-gridExtra::grid.arrange(
-  ggAcf(z, lag.max = 36) + labs(title = NULL, x = "Rezago (meses)", y = "ACF"),
-  ggPacf(z, lag.max = 36) + labs(title = NULL, x = "Rezago (meses)", y = "PACF"),
-  ncol = 1
-)
-```
-
-```{r z-cifras, echo=FALSE}
-rz <- acf(z, lag.max = 36, plot = FALSE)$acf[-1]
-pz <- pacf(z, lag.max = 36, plot = FALSE)$acf
-banda <- 1.96 / sqrt(length(z))
-lb <- Box.test(z, lag = 24, type = "Ljung-Box")
-lb_y <- Box.test(y, lag = 24, type = "Ljung-Box")
-```
-
-Tras las dos diferencias (Figura \@ref(fig:acf-pacf-z)), la mayoría de autocorrelaciones queda dentro de la banda de ±`r num(banda, 2)`. Sobresale el **rezago 12**, con $r_{12} =$ `r num(rz[12], 2)` en la ACF. En la PACF, el valor en el rezago 12 (`r num(pz[12], 2)`) se repite atenuado en el 24 (`r num(pz[24], 2)`). Un pico negativo en el rezago estacional de la ACF, con una PACF que decae en los múltiplos de 12, es la firma de un componente **media móvil estacional**. El valor positivo en el rezago 13 ($r_{13} =$ `r num(rz[13], 2)`) es la interacción esperada entre ese componente y la parte no estacional.
-
-También superan la banda los rezagos 2 ($r_2 =$ `r num(rz[2], 2)`) y 9 ($r_9 =$ `r num(rz[9], 2)`). Esto sugiere que la parte no estacional necesita algún término adicional. En conjunto, el patrón apunta a un modelo de la familia SARIMA$(p,1,q)(0,1,1)_{12}$, cuyo caso más simple es el *modelo de aerolínea*, $(0,1,1)(0,1,1)_{12}$. Los órdenes $p$ y $q$ se elegirán en la siguiente unidad con criterios de información y con el análisis de los residuos.
-
-```{r tabla-acf, echo=FALSE}
-k <- c(1, 2, 3, 6, 12, 24)
-kable(
-  data.frame(
-    Rezago = k,
-    `Serie original` = num(r[k], 3),
-    `Primera diferencia` = num(r_d1[k], 3),
-    `Δ Δ12 log` = num(rz[k], 3),
-    check.names = FALSE
-  ),
-  align = "rrrr",
-  caption = "Autocorrelaciones en rezagos seleccionados según la transformación de la serie."
-)
-```
-
-La prueba de Ljung-Box confirma la lectura. Sobre la serie original, el estadístico con 24 rezagos es $Q =$ `r num(lb_y$statistic, 1)` (valor p < 0,001): hay mucha estructura por modelar. En la serie transformada baja a $Q =$ `r num(lb$statistic, 1)` (valor p `r if (lb$p.value < 0.001) "< 0,001" else paste("=", num(lb$p.value, 3))`). Aunque las diferencias retiran la mayor parte de la dependencia, la correlación remanente en el rezago 12 todavía es significativa. Esa correlación es la que deberá recoger el componente estacional del modelo.
+Sin la tendencia, la estacionalidad se ve con más claridad (Figura \@ref(fig:acf-diff)): la autocorrelación en el rezago 12 es 0,83. Es decir, el cambio de un mes a otro se repite casi igual cada año.

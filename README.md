@@ -1,6 +1,8 @@
 # Ana-lisisSeriesTiempo
 Repositorio códigos R para la clase de Análisis de Series de Tiempo, PUJ CALI
 
+Johan David Perdomo Campos – Pontificia Universidad Javeriana Cali.
+
 Mini libro en bookdown sobre el índice mensual de ventas reales del comercio minorista en Colombia (DANE, Encuesta Mensual de Comercio).
 
 - **Libro:** https://johancampos13.github.io/Ana-lisisSeriesTiempo/
@@ -12,7 +14,7 @@ Mini libro en bookdown sobre el índice mensual de ventas reales del comercio mi
 | Archivo | Contenido |
 |:--|:--|
 | `index.Rmd`, `01-*.Rmd` … `07-*.Rmd` | Capítulos del libro |
-| `_bookdown.yml`, `_output.yml`, `libro.css`, `referencias.bib`, `apa.csl` | Configuración de bookdown |
+| `_bookdown.yml`, `_output.yml` | Configuración de bookdown |
 | `R/preparar_datos.R` | Descarga el anexo del DANE y genera `datos/ventas_reales_minorista.csv` |
 | `R/compilar.R` | Compila el libro en `docs/` (carpeta publicada con GitHub Pages) |
 | `datos/` | Anexo original del DANE y serie de trabajo |

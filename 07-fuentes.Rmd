@@ -1,0 +1,10 @@
+# Fuentes {-}
+
+- DANE. Encuesta Mensual de Comercio (EMC). Anexo de índices empalmados, agosto de 2026 (actualizado el 16 de octubre de 2026, consultado el 25 de octubre de 2026). https://www.dane.gov.co/files/operaciones/EMC/anex-EMC-SeriesIndiceEmpalmados-ago2026.xlsx
+- DANE. Encuesta Mensual de Comercio (EMC). https://www.dane.gov.co/index.php/estadisticas-por-tema/comercio-interno/encuesta-mensual-de-comercio-emc
+- DANE. Metodología general de la EMC. https://www.dane.gov.co/files/operaciones/EMC/met-EMC.pdf
+- DANE. Términos y condiciones del portal. https://www.dane.gov.co/index.php/terminos-y-condiciones
+- Hyndman, R. J. y Athanasopoulos, G. (2021). *Forecasting: Principles and Practice* (3.ª ed.). OTexts. https://otexts.com/fpp3/
+- Xie, Y. (2016). *bookdown: Authoring Books and Technical Documents with R Markdown*. Chapman and Hall/CRC.
+
+Fuente de los datos: Departamento Administrativo Nacional de Estadística: www.dane.gov.co

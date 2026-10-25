@@ -8,6 +8,5 @@ dependencies:
   - r-knitr
   - r-forecast
   - r-ggplot2
-  - r-gridextra
   - r-readxl
   - pandoc

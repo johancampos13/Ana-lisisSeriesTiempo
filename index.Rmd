@@ -1,45 +1,24 @@
 ---
 title: "Pronóstico de ventas reales del comercio minorista en Colombia"
-subtitle: "Mini libro de Análisis de Series de Tiempo"
-author: "Johan Campos"
-date: "Octubre de 2026"
+author: "Johan David Perdomo Campos"
+date: "Pontificia Universidad Javeriana Cali - Clase: Análisis de Series de Tiempo"
 site: bookdown::bookdown_site
 documentclass: book
 lang: es
-description: "Análisis y pronóstico del índice mensual de ventas reales del comercio minorista en Colombia (DANE, EMC). Maestría en Ciencia de Datos, Pontificia Universidad Javeriana Cali."
-bibliography: referencias.bib
-csl: apa.csl
-link-citations: true
-reference-section-title: "Referencias"
 ---
 
-```{r configuracion, include=FALSE}
-knitr::opts_chunk$set(
-  echo = TRUE, message = FALSE, warning = FALSE,
-  fig.align = "center", fig.width = 8, fig.height = 4.2, out.width = "100%"
-)
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE,
+                      fig.align = "center", fig.width = 8, fig.height = 4)
 library(forecast)
 library(ggplot2)
-library(knitr)
-
-theme_set(theme_minimal(base_size = 11))
-azul <- "#2a6f97"
-naranja <- "#d1495b"
-
-# Formato numérico en español: coma decimal.
-num <- function(x, d = 1) formatC(x, format = "f", digits = d, decimal.mark = ",", big.mark = ".")
-meses <- c("Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic")
 ```
 
 # Presentación {-}
 
-Este mini libro documenta, unidad por unidad, el análisis de una serie de tiempo para el curso de **Análisis de Series de Tiempo** de la Maestría en Ciencia de Datos de la Pontificia Universidad Javeriana Cali. La serie elegida es el **índice mensual de ventas reales del comercio minorista en Colombia**, publicado por el DANE en la Encuesta Mensual de Comercio (EMC).
+Este documento reúne los entregables del curso Análisis de Series de Tiempo. La serie de trabajo es el índice mensual de ventas reales del comercio minorista en Colombia, publicado por el DANE en la Encuesta Mensual de Comercio (EMC).
 
-| Unidad | Entregable | Capítulos |
-|:--|:--|:--|
-| 1 | Propuesta: qué información se trabajará y por qué | Capítulo \@ref(propuesta-unidad-1) |
-| 2 | Avance 2: promedio móvil, rezagos y estacionalidad | Capítulos \@ref(datos) a \@ref(sintesis) |
+- Unidad 1: propuesta (capítulo 1).
+- Unidad 2: promedio móvil, rezagos y estacionalidad (capítulos 2 a 6).
 
-El libro está escrito en R Markdown y compilado con el paquete **bookdown** [@xie2016bookdown]. Cada figura y cada cifra del texto se calculan a partir de los datos al compilar el libro, de modo que el análisis es reproducible desde el [repositorio en GitHub](https://github.com/johancampos13/Ana-lisisSeriesTiempo).
-
-<p class="fuente">Fuente de los datos: Departamento Administrativo Nacional de Estadística: www.dane.gov.co</p>
+Código y datos: https://github.com/johancampos13/Ana-lisisSeriesTiempo
