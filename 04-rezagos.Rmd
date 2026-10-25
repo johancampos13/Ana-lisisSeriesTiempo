@@ -5,7 +5,7 @@ Un rezago es el valor de la serie *k* meses antes. Comparar cada mes con sus rez
 ## Gráfico de rezagos
 
 ```{r lags, fig.height=6, fig.cap="Índice de cada mes frente a su valor 1 a 12 meses antes."}
-gglagplot(y, lags = 12, do.lines = FALSE)
+gglagplot(y, lags = 12, do.lines = FALSE) + labs(colour = "Mes")
 ```
 
 En la Figura \@ref(fig:lags) los puntos de diciembre quedan siempre por encima de la diagonal en los rezagos 1 a 11, porque diciembre vende más que los demás meses. En el rezago 12 los puntos casi forman una línea: cada mes se parece mucho al mismo mes del año anterior.
