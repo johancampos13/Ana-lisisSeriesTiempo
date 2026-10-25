@@ -15,7 +15,7 @@ Mini libro en bookdown sobre el índice mensual de ventas reales del comercio mi
 |:--|:--|
 | `index.Rmd`, `01-*.Rmd` … `07-*.Rmd` | Capítulos del libro |
 | `_bookdown.yml`, `_output.yml` | Configuración de bookdown |
-| `R/preparar_datos.R` | Descarga el anexo del DANE y genera `datos/ventas_reales_minorista.csv` |
+| `R/preparar_datos.R` | Extrae la serie del anexo del DANE y genera `datos/ventas_reales_minorista.csv` |
 | `R/compilar.R` | Compila el libro en `docs/` (carpeta publicada con GitHub Pages) |
 | `datos/` | Anexo original del DANE y serie de trabajo |
 
@@ -26,7 +26,7 @@ Con Conda instalado, cree y active el entorno con R, Pandoc y los paquetes reque
 ```sh
 conda env create -f environment.yml
 conda activate series-tiempo
-Rscript R/preparar_datos.R   # opcional: la serie ya está en datos/
+Rscript R/preparar_datos.R   # opcional: el CSV ya está en datos/
 Rscript R/compilar.R
 ```
 
