@@ -5,4 +5,9 @@ dependencies:
   - r-base
   - r-bookdown
   - r-rmarkdown
+  - r-knitr
+  - r-forecast
+  - r-ggplot2
+  - r-gridextra
+  - r-readxl
   - pandoc

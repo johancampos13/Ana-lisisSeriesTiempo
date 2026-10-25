@@ -1,0 +1,19 @@
+# Fuentes y referencias {-}
+
+## Fuentes de información {-}
+
+- **Datos.** Departamento Administrativo Nacional de Estadística (DANE). *Encuesta Mensual de Comercio (EMC). Anexos índices – agosto 2026p*, hoja 1.2, columna «Total comercio minorista sin otros vehículos». Archivo [`anex-EMC-SeriesIndiceEmpalmados-ago2026.xlsx`](https://www.dane.gov.co/files/operaciones/EMC/anex-EMC-SeriesIndiceEmpalmados-ago2026.xlsx), actualizado el 16 de octubre de 2026 y consultado el 25 de octubre de 2026.
+- **Página de la operación estadística.** DANE. [Encuesta Mensual de Comercio (EMC)](https://www.dane.gov.co/index.php/estadisticas-por-tema/comercio-interno/encuesta-mensual-de-comercio-emc).
+- **Boletín técnico.** DANE. [*Encuesta Mensual de Comercio (EMC). Agosto 2026*](https://www.dane.gov.co/files/operaciones/EMC/bol-EMC-ago2026.pdf).
+- **Metodología.** DANE. [*Metodología general Encuesta Mensual de Comercio*](https://www.dane.gov.co/files/operaciones/EMC/met-EMC.pdf).
+- **Condiciones de uso.** DANE. [Términos y condiciones del portal](https://www.dane.gov.co/index.php/terminos-y-condiciones), numeral 2.
+
+<p class="fuente">Fuente: Departamento Administrativo Nacional de Estadística: www.dane.gov.co</p>
+
+## Herramientas {-}
+
+Análisis realizado en R `r paste(R.version$major, R.version$minor, sep = ".")` [@rcore] con los paquetes **forecast** `r packageVersion("forecast")` [@hyndman2008forecast], **ggplot2** `r packageVersion("ggplot2")` [@wickham2016ggplot2], **readxl**, **knitr** y **bookdown** [@xie2016bookdown]. El código está en el [repositorio de GitHub](https://github.com/johancampos13/Ana-lisisSeriesTiempo).
+
+## Bibliografía {-}
+
+<div id="refs"></div>

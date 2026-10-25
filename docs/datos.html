@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="es" xml:lang="es">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Capítulo 2 Los datos | Pronóstico de ventas reales del comercio minorista en Colombia</title>
+  <meta name="description" content="Análisis y pronóstico del índice mensual de ventas reales del comercio minorista en Colombia (DANE, EMC). Maestría en Ciencia de Datos, Pontificia Universidad Javeriana Cali." />
+  <meta name="generator" content="bookdown 0.48 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Capítulo 2 Los datos | Pronóstico de ventas reales del comercio minorista en Colombia" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="Análisis y pronóstico del índice mensual de ventas reales del comercio minorista en Colombia (DANE, EMC). Maestría en Ciencia de Datos, Pontificia Universidad Javeriana Cali." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Capítulo 2 Los datos | Pronóstico de ventas reales del comercio minorista en Colombia" />
+  
+  <meta name="twitter:description" content="Análisis y pronóstico del índice mensual de ventas reales del comercio minorista en Colombia (DANE, EMC). Maestría en Ciencia de Datos, Pontificia Universidad Javeriana Cali." />
+  
+
+<meta name="author" content="Johan Campos" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="propuesta-unidad-1.html"/>
+<link rel="next" href="promedio-movil.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="libro.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><strong>Pronóstico de ventas minoristas</strong></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Presentación</a></li>
+<li class="chapter" data-level="1" data-path="propuesta-unidad-1.html"><a href="propuesta-unidad-1.html"><i class="fa fa-check"></i><b>1</b> Propuesta (Unidad 1)</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="propuesta-unidad-1.html"><a href="propuesta-unidad-1.html#propuesta-y-justificaci%C3%B3n"><i class="fa fa-check"></i><b>1.1</b> Propuesta y justificación</a></li>
+<li class="chapter" data-level="1.2" data-path="propuesta-unidad-1.html"><a href="propuesta-unidad-1.html#datos-y-uso-de-la-informaci%C3%B3n"><i class="fa fa-check"></i><b>1.2</b> Datos y uso de la información</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="datos.html"><a href="datos.html"><i class="fa fa-check"></i><b>2</b> Los datos</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="datos.html"><a href="datos.html#origen-y-variable-de-trabajo"><i class="fa fa-check"></i><b>2.1</b> Origen y variable de trabajo</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="promedio-movil.html"><a href="promedio-movil.html"><i class="fa fa-check"></i><b>3</b> Aproximación por promedio móvil</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="promedio-movil.html"><a href="promedio-movil.html#idea"><i class="fa fa-check"></i><b>3.1</b> Idea</a></li>
+<li class="chapter" data-level="3.2" data-path="promedio-movil.html"><a href="promedio-movil.html#comparaci%C3%B3n-de-%C3%B3rdenes"><i class="fa fa-check"></i><b>3.2</b> Comparación de órdenes</a></li>
+<li class="chapter" data-level="3.3" data-path="promedio-movil.html"><a href="promedio-movil.html#tendencia-ciclo-y-ciclos-de-la-serie"><i class="fa fa-check"></i><b>3.3</b> Tendencia-ciclo y ciclos de la serie</a></li>
+<li class="chapter" data-level="3.4" data-path="promedio-movil.html"><a href="promedio-movil.html#componente-estacional-irregular"><i class="fa fa-check"></i><b>3.4</b> Componente estacional-irregular</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="rezagos.html"><a href="rezagos.html"><i class="fa fa-check"></i><b>4</b> Aproximación por rezagos</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="rezagos.html"><a href="rezagos.html#idea-1"><i class="fa fa-check"></i><b>4.1</b> Idea</a></li>
+<li class="chapter" data-level="4.2" data-path="rezagos.html"><a href="rezagos.html#gr%C3%A1ficos-de-rezagos"><i class="fa fa-check"></i><b>4.2</b> Gráficos de rezagos</a></li>
+<li class="chapter" data-level="4.3" data-path="rezagos.html"><a href="rezagos.html#autocorrelaci%C3%B3n-de-la-serie-en-niveles"><i class="fa fa-check"></i><b>4.3</b> Autocorrelación de la serie en niveles</a></li>
+<li class="chapter" data-level="4.4" data-path="rezagos.html"><a href="rezagos.html#autocorrelaci%C3%B3n-de-la-serie-diferenciada"><i class="fa fa-check"></i><b>4.4</b> Autocorrelación de la serie diferenciada</a></li>
+<li class="chapter" data-level="4.5" data-path="rezagos.html"><a href="rezagos.html#diferencia-estacional-y-orden-de-diferenciaci%C3%B3n"><i class="fa fa-check"></i><b>4.5</b> Diferencia estacional y orden de diferenciación</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="estacionalidad.html"><a href="estacionalidad.html"><i class="fa fa-check"></i><b>5</b> Aproximación a la estacionalidad</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="estacionalidad.html"><a href="estacionalidad.html#idea-2"><i class="fa fa-check"></i><b>5.1</b> Idea</a></li>
+<li class="chapter" data-level="5.2" data-path="estacionalidad.html"><a href="estacionalidad.html#gr%C3%A1fico-estacional"><i class="fa fa-check"></i><b>5.2</b> Gráfico estacional</a></li>
+<li class="chapter" data-level="5.3" data-path="estacionalidad.html"><a href="estacionalidad.html#subseries-mensuales"><i class="fa fa-check"></i><b>5.3</b> Subseries mensuales</a></li>
+<li class="chapter" data-level="5.4" data-path="estacionalidad.html"><a href="estacionalidad.html#distribuci%C3%B3n-por-mes"><i class="fa fa-check"></i><b>5.4</b> Distribución por mes</a></li>
+<li class="chapter" data-level="5.5" data-path="estacionalidad.html"><a href="estacionalidad.html#descomposici%C3%B3n-cl%C3%A1sica-multiplicativa"><i class="fa fa-check"></i><b>5.5</b> Descomposición clásica multiplicativa</a></li>
+<li class="chapter" data-level="5.6" data-path="estacionalidad.html"><a href="estacionalidad.html#descomposici%C3%B3n-stl"><i class="fa fa-check"></i><b>5.6</b> Descomposición STL</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="sintesis.html"><a href="sintesis.html"><i class="fa fa-check"></i><b>6</b> Síntesis de patrones y ciclos</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="sintesis.html"><a href="sintesis.html#implicaciones-para-el-pron%C3%B3stico-unidad-3"><i class="fa fa-check"></i><b>6.1</b> Implicaciones para el pronóstico (Unidad 3)</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="fuentes-y-referencias.html"><a href="fuentes-y-referencias.html"><i class="fa fa-check"></i>Fuentes y referencias</a>
+<ul>
+<li class="chapter" data-level="" data-path="fuentes-y-referencias.html"><a href="fuentes-y-referencias.html#fuentes-de-informaci%C3%B3n"><i class="fa fa-check"></i>Fuentes de información</a></li>
+<li class="chapter" data-level="" data-path="fuentes-y-referencias.html"><a href="fuentes-y-referencias.html#herramientas"><i class="fa fa-check"></i>Herramientas</a></li>
+<li class="chapter" data-level="" data-path="fuentes-y-referencias.html"><a href="fuentes-y-referencias.html#bibliograf%C3%ADa"><i class="fa fa-check"></i>Bibliografía</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/johancampos13/Ana-lisisSeriesTiempo">Repositorio en GitHub</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Pronóstico de ventas reales del comercio minorista en Colombia</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="datos" class="section level1 hasAnchor" number="2">
+<h1><span class="header-section-number">Capítulo 2</span> Los datos<a href="datos.html#datos" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="origen-y-variable-de-trabajo" class="section level2 hasAnchor" number="2.1">
+<h2><span class="header-section-number">2.1</span> Origen y variable de trabajo<a href="datos.html#origen-y-variable-de-trabajo" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>La información proviene del anexo <em>Índices empalmados</em> de la EMC con corte a agosto de 2026 (cifras provisionales, actualizado por el DANE el 16 de octubre de 2026 y descargado el 25 de octubre de 2026). El anexo tiene once hojas. Se usa la <strong>hoja 1.2</strong>, <em>Índices empalmados de las ventas en valores reales por líneas de mercancía – Total nacional</em>, con base 2019 = 100.</p>
+<p>De esa hoja se toma la columna <strong>«Total comercio minorista sin otros vehículos»</strong>, porque el DANE indica en sus notas que es el total comparable históricamente: los índices de ventas en valores reales descuentan el efecto de los precios, y la serie se empalmó por retropolación conservando las variaciones anuales. Los demás totales y las 16 líneas de mercancía quedan disponibles para análisis complementarios.</p>
+<p>El script <code>R/preparar_datos.R</code> del repositorio descarga el anexo, extrae la columna y guarda la serie en <code>datos/ventas_reales_minorista.csv</code>:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="datos.html#cb1-1" tabindex="-1"></a>ventas <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;datos/ventas_reales_minorista.csv&quot;</span>)</span>
+<span id="cb1-2"><a href="datos.html#cb1-2" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">ts</span>(ventas<span class="sc">$</span>indice_ventas_reales, <span class="at">start =</span> <span class="fu">c</span>(<span class="dv">2013</span>, <span class="dv">1</span>), <span class="at">frequency =</span> <span class="dv">12</span>)</span></code></pre></div>
+<p>La serie tiene <strong>164 observaciones mensuales</strong> entre enero de 2013 y agosto de 2026. Su valor mínimo es 55,5, en abril de 2020, y el máximo es 168,0, en diciembre de 2025. En agosto de 2026 el índice fue 138,4, 5,6 % más que en agosto de 2025.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="datos.html#cb2-1" tabindex="-1"></a><span class="fu">autoplot</span>(y, <span class="at">colour =</span> azul) <span class="sc">+</span></span>
+<span id="cb2-2"><a href="datos.html#cb2-2" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">100</span>, <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>, <span class="at">colour =</span> <span class="st">&quot;grey50&quot;</span>) <span class="sc">+</span></span>
+<span id="cb2-3"><a href="datos.html#cb2-3" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="st">&quot;Índice (2019 = 100)&quot;</span>)</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:serie"></span>
+<img src="pronostico-ventas-minoristas_files/figure-html/serie-1.png" alt="Índice de ventas reales del comercio minorista sin otros vehículos (base 2019 = 100), enero de 2013 a agosto de 2026." width="100%" />
+<p class="caption">
+Figura 2.1: Índice de ventas reales del comercio minorista sin otros vehículos (base 2019 = 100), enero de 2013 a agosto de 2026.
+</p>
+</div>
+<p>La Figura <a href="datos.html#fig:serie">2.1</a> muestra tres rasgos que guían el resto del análisis:</p>
+<ol style="list-style-type: decimal">
+<li><strong>Tendencia creciente</strong> de largo plazo: el promedio anual del índice pasa de 78,5 en 2013 a 133,7 en los primeros ocho meses de 2026.</li>
+<li><strong>Picos regulares cada diciembre</strong>, señal de una estacionalidad anual marcada.</li>
+<li><strong>Rupturas no estacionales</strong>: la caída de abril de 2020 por el aislamiento obligatorio frente al COVID-19 y una desaceleración en 2023.</li>
+</ol>
+<table>
+<caption><span id="tab:promedios-anuales">Tabla 2.1: </span>Promedio anual del índice y su variación (años completos, 2013 a 2025).</caption>
+<thead>
+<tr class="header">
+<th align="left">Año</th>
+<th align="right">Índice promedio</th>
+<th align="right">Variación anual (%)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">2013</td>
+<td align="right">78,5</td>
+<td align="right"></td>
+</tr>
+<tr class="even">
+<td align="left">2014</td>
+<td align="right">85,2</td>
+<td align="right">8,5</td>
+</tr>
+<tr class="odd">
+<td align="left">2015</td>
+<td align="right">88,0</td>
+<td align="right">3,3</td>
+</tr>
+<tr class="even">
+<td align="left">2016</td>
+<td align="right">89,4</td>
+<td align="right">1,6</td>
+</tr>
+<tr class="odd">
+<td align="left">2017</td>
+<td align="right">88,5</td>
+<td align="right">-1,1</td>
+</tr>
+<tr class="even">
+<td align="left">2018</td>
+<td align="right">93,9</td>
+<td align="right">6,2</td>
+</tr>
+<tr class="odd">
+<td align="left">2019</td>
+<td align="right">100,0</td>
+<td align="right">6,5</td>
+</tr>
+<tr class="even">
+<td align="left">2020</td>
+<td align="right">93,8</td>
+<td align="right">-6,2</td>
+</tr>
+<tr class="odd">
+<td align="left">2021</td>
+<td align="right">109,0</td>
+<td align="right">16,2</td>
+</tr>
+<tr class="even">
+<td align="left">2022</td>
+<td align="right">119,7</td>
+<td align="right">9,8</td>
+</tr>
+<tr class="odd">
+<td align="left">2023</td>
+<td align="right">113,9</td>
+<td align="right">-4,8</td>
+</tr>
+<tr class="even">
+<td align="left">2024</td>
+<td align="right">116,0</td>
+<td align="right">1,8</td>
+</tr>
+<tr class="odd">
+<td align="left">2025</td>
+<td align="right">128,3</td>
+<td align="right">10,6</td>
+</tr>
+</tbody>
+</table>
+<p>La Tabla <a href="datos.html#tab:promedios-anuales">2.1</a> resume la trayectoria de largo plazo: crecimiento sostenido hasta 2019, caída en 2020, fuerte rebote en 2021 y 2022, contracción en 2023 y recuperación desde 2024.</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="propuesta-unidad-1.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="promedio-movil.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": null,
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": null,
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": null,
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  }
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

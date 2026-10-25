@@ -1,0 +1,20 @@
+book_filename: "pronostico-ventas-minoristas"
+output_dir: docs
+delete_merged_file: true
+rmd_files:
+  - index.Rmd
+  - 01-propuesta.Rmd
+  - 02-datos.Rmd
+  - 03-promedio-movil.Rmd
+  - 04-rezagos.Rmd
+  - 05-estacionalidad.Rmd
+  - 06-sintesis.Rmd
+  - 07-referencias.Rmd
+language:
+  label:
+    fig: "Figura "
+    tab: "Tabla "
+    eq: "Ecuación "
+  ui:
+    chapter_name: "Capítulo "
+    edit: "Editar"

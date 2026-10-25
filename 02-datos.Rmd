@@ -1,0 +1,51 @@
+# Los datos {#datos}
+
+## Origen y variable de trabajo
+
+La información proviene del anexo *Índices empalmados* de la EMC con corte a agosto de 2026 (cifras provisionales, actualizado por el DANE el 16 de octubre de 2026 y descargado el 25 de octubre de 2026). El anexo tiene once hojas. Se usa la **hoja 1.2**, *Índices empalmados de las ventas en valores reales por líneas de mercancía – Total nacional*, con base 2019 = 100.
+
+De esa hoja se toma la columna **«Total comercio minorista sin otros vehículos»**, porque el DANE indica en sus notas que es el total comparable históricamente: los índices de ventas en valores reales descuentan el efecto de los precios, y la serie se empalmó por retropolación conservando las variaciones anuales. Los demás totales y las 16 líneas de mercancía quedan disponibles para análisis complementarios.
+
+El script `R/preparar_datos.R` del repositorio descarga el anexo, extrae la columna y guarda la serie en `datos/ventas_reales_minorista.csv`:
+
+```{r lectura}
+ventas <- read.csv("datos/ventas_reales_minorista.csv")
+y <- ts(ventas$indice_ventas_reales, start = c(2013, 1), frequency = 12)
+```
+
+```{r resumen, echo=FALSE}
+n <- length(y)
+inicio <- "enero de 2013"
+fin <- "agosto de 2026"
+ult <- tail(y, 1)
+anual <- 100 * (ult / y[n - 12] - 1)
+minimo <- which.min(y)
+maximo <- which.max(y)
+```
+
+La serie tiene **`r n` observaciones mensuales** entre `r inicio` y `r fin`. Su valor mínimo es `r num(min(y))`, en abril de 2020, y el máximo es `r num(max(y))`, en diciembre de 2025. En agosto de 2026 el índice fue `r num(ult)`, `r num(anual)` % más que en agosto de 2025.
+
+```{r serie, fig.cap="Índice de ventas reales del comercio minorista sin otros vehículos (base 2019 = 100), enero de 2013 a agosto de 2026."}
+autoplot(y, colour = azul) +
+  geom_hline(yintercept = 100, linetype = "dashed", colour = "grey50") +
+  labs(x = NULL, y = "Índice (2019 = 100)")
+```
+
+La Figura \@ref(fig:serie) muestra tres rasgos que guían el resto del análisis:
+
+1. **Tendencia creciente** de largo plazo: el promedio anual del índice pasa de `r num(mean(window(y, 2013, c(2013, 12))))` en 2013 a `r num(mean(window(y, 2026)))` en los primeros ocho meses de 2026.
+2. **Picos regulares cada diciembre**, señal de una estacionalidad anual marcada.
+3. **Rupturas no estacionales**: la caída de abril de 2020 por el aislamiento obligatorio frente al COVID-19 y una desaceleración en 2023.
+
+```{r promedios-anuales, echo=FALSE}
+prom <- aggregate(window(y, end = c(2025, 12)), FUN = mean)
+tabla <- data.frame(
+  Año = as.integer(time(prom)),
+  `Índice promedio` = num(as.numeric(prom)),
+  `Variación anual (%)` = c("", num(100 * diff(as.numeric(prom)) / head(as.numeric(prom), -1))),
+  check.names = FALSE
+)
+kable(tabla, align = "lrr", caption = "Promedio anual del índice y su variación (años completos, 2013 a 2025).")
+```
+
+La Tabla \@ref(tab:promedios-anuales) resume la trayectoria de largo plazo: crecimiento sostenido hasta 2019, caída en 2020, fuerte rebote en 2021 y 2022, contracción en 2023 y recuperación desde 2024.
