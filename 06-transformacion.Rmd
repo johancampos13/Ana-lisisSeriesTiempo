@@ -1,0 +1,42 @@
+# Transformación de la serie {#transformacion}
+
+A partir de este capítulo empieza la Unidad 3. La idea es dejar la serie lista para los modelos de pronóstico, y se hace en tres pasos:
+
+1. Revisar si hace falta transformar la serie para controlar su variabilidad (este capítulo).
+2. Descomponerla para ver con claridad qué tendencia y qué estacionalidad hay que controlar (capítulo \@ref(descomposicion)).
+3. Comprobar si es estacionaria y diferenciarla si no lo es (capítulo \@ref(estacionariedad)).
+
+## ¿Hace falta transformar?
+
+En la Figura \@ref(fig:serie) se nota que los picos de diciembre son cada vez más altos: a medida que la serie crece, también crecen sus subidas y bajadas. Para comprobarlo se calcula, para cada año, el promedio del índice y su desviación estándar:
+
+```{r variabilidad}
+anio <- floor(time(y))
+tabla <- data.frame(
+  promedio   = tapply(y, anio, mean),
+  desviacion = tapply(y, anio, sd),
+  desv_log   = tapply(log(y), anio, sd)
+)
+round(tabla, 2)
+```
+
+La desviación estándar pasa de cerca de 8 en 2013 a más de 14 en 2025, es decir, la variabilidad crece con el nivel. Lo que se mantiene casi constante es la proporción: en casi todos los años la desviación es alrededor del 10 % del promedio. Cuando la variabilidad crece en proporción al nivel, la transformación indicada es el **logaritmo**.
+
+La última columna lo confirma: con el logaritmo, la desviación queda cerca de 0,10 todos los años. Las excepciones son 2020 y 2021, que se alteran por la pandemia y no por el nivel de la serie, y 2026, que solo tiene ocho meses y no incluye diciembre.
+
+## ¿Por qué logaritmo y no otra transformación?
+
+La transformación de Box-Cox incluye al logaritmo como caso particular, y la función `BoxCox.lambda()` sugiere un valor para su parámetro:
+
+```{r lambda}
+BoxCox.lambda(y)
+```
+
+El valor sugerido está entre 1 (no transformar) y 0 (logaritmo). Se prefiere el logaritmo por dos razones prácticas: la tabla anterior muestra que estabiliza bien la variabilidad, y sus resultados son fáciles de interpretar, porque una diferencia en logaritmos equivale, aproximadamente, a una variación porcentual.
+
+```{r log, fig.cap="Logaritmo del índice de ventas reales."}
+ly <- log(y)
+autoplot(ly) + labs(x = "Año", y = "log(índice)")
+```
+
+En la Figura \@ref(fig:log) los picos de diciembre tienen un tamaño parecido al principio y al final de la serie. La transformación controla la variabilidad, pero no quita la tendencia: la serie sigue subiendo. Eso se trata con la diferenciación en el capítulo \@ref(estacionariedad).

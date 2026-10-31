@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Capítulo 6 Conclusiones | Pronóstico de ventas reales del comercio minorista en Colombia</title>
-  <meta name="description" content="Capítulo 6 Conclusiones | Pronóstico de ventas reales del comercio minorista en Colombia" />
+  <title>Capítulo 9 Conclusiones | Pronóstico de ventas reales del comercio minorista en Colombia</title>
+  <meta name="description" content="Capítulo 9 Conclusiones | Pronóstico de ventas reales del comercio minorista en Colombia" />
   <meta name="generator" content="bookdown 0.48 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Capítulo 6 Conclusiones | Pronóstico de ventas reales del comercio minorista en Colombia" />
+  <meta property="og:title" content="Capítulo 9 Conclusiones | Pronóstico de ventas reales del comercio minorista en Colombia" />
   <meta property="og:type" content="book" />
   
   
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Capítulo 6 Conclusiones | Pronóstico de ventas reales del comercio minorista en Colombia" />
+  <meta name="twitter:title" content="Capítulo 9 Conclusiones | Pronóstico de ventas reales del comercio minorista en Colombia" />
   
   
   
@@ -29,7 +29,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="estacionalidad.html"/>
+<link rel="prev" href="estacionariedad.html"/>
 <link rel="next" href="fuentes.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -154,7 +154,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.2" data-path="estacionalidad.html"><a href="estacionalidad.html#subseries-por-mes"><i class="fa fa-check"></i><b>5.2</b> Subseries por mes</a></li>
 <li class="chapter" data-level="5.3" data-path="estacionalidad.html"><a href="estacionalidad.html#descomposici%C3%B3n"><i class="fa fa-check"></i><b>5.3</b> Descomposición</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="conclusiones.html"><a href="conclusiones.html"><i class="fa fa-check"></i><b>6</b> Conclusiones</a></li>
+<li class="chapter" data-level="6" data-path="transformacion.html"><a href="transformacion.html"><i class="fa fa-check"></i><b>6</b> Transformación de la serie</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="transformacion.html"><a href="transformacion.html#hace-falta-transformar"><i class="fa fa-check"></i><b>6.1</b> ¿Hace falta transformar?</a></li>
+<li class="chapter" data-level="6.2" data-path="transformacion.html"><a href="transformacion.html#por-qu%C3%A9-logaritmo-y-no-otra-transformaci%C3%B3n"><i class="fa fa-check"></i><b>6.2</b> ¿Por qué logaritmo y no otra transformación?</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="descomposicion.html"><a href="descomposicion.html"><i class="fa fa-check"></i><b>7</b> Descomposición</a></li>
+<li class="chapter" data-level="8" data-path="estacionariedad.html"><a href="estacionariedad.html"><i class="fa fa-check"></i><b>8</b> Estacionariedad y diferenciación</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="estacionariedad.html"><a href="estacionariedad.html#c%C3%B3mo-se-comprueba"><i class="fa fa-check"></i><b>8.1</b> Cómo se comprueba</a></li>
+<li class="chapter" data-level="8.2" data-path="estacionariedad.html"><a href="estacionariedad.html#paso-1-la-serie-en-logaritmos"><i class="fa fa-check"></i><b>8.2</b> Paso 1: la serie en logaritmos</a></li>
+<li class="chapter" data-level="8.3" data-path="estacionariedad.html"><a href="estacionariedad.html#paso-2-diferencia-estacional"><i class="fa fa-check"></i><b>8.3</b> Paso 2: diferencia estacional</a></li>
+<li class="chapter" data-level="8.4" data-path="estacionariedad.html"><a href="estacionariedad.html#paso-3-diferencia-regular"><i class="fa fa-check"></i><b>8.4</b> Paso 3: diferencia regular</a></li>
+<li class="chapter" data-level="8.5" data-path="estacionariedad.html"><a href="estacionariedad.html#resumen-del-procedimiento"><i class="fa fa-check"></i><b>8.5</b> Resumen del procedimiento</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="conclusiones.html"><a href="conclusiones.html"><i class="fa fa-check"></i><b>9</b> Conclusiones</a></li>
 <li class="chapter" data-level="" data-path="fuentes.html"><a href="fuentes.html"><i class="fa fa-check"></i>Fuentes</a></li>
 </ul>
 
@@ -173,14 +187,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="conclusiones" class="section level1 hasAnchor" number="6">
-<h1><span class="header-section-number">Capítulo 6</span> Conclusiones<a href="conclusiones.html#conclusiones" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="conclusiones" class="section level1 hasAnchor" number="9">
+<h1><span class="header-section-number">Capítulo 9</span> Conclusiones<a href="conclusiones.html#conclusiones" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p><strong>Unidad 2</strong></p>
 <ul>
 <li>El promedio móvil de orden 12 elimina la estacionalidad y deja ver una tendencia creciente, con una caída en 2020 por la pandemia y otra en 2023.</li>
 <li>Los rezagos muestran que el índice depende mucho de sus valores pasados, sobre todo del mismo mes del año anterior (rezago 12).</li>
 <li>La estacionalidad es anual y estable: diciembre es el mes más alto y febrero y abril los más bajos.</li>
 </ul>
-<p>Como la serie tiene tendencia y estacionalidad, los modelos de la siguiente unidad deben incluir los dos componentes.</p>
+<p><strong>Unidad 3</strong></p>
+<ul>
+<li>La variabilidad de la serie crece con su nivel, por eso se trabajó con el logaritmo.</li>
+<li>La descomposición STL confirma una tendencia creciente y una estacionalidad estable, y deja los efectos de la pandemia en el componente de resto.</li>
+<li>La serie en logaritmos no es estacionaria. Necesita una diferencia estacional y una regular; después de las dos, las pruebas ADF y KPSS coinciden en que es estacionaria.</li>
+</ul>
+<p>Para la siguiente unidad, la serie de trabajo será el logaritmo del índice con una diferencia estacional y una regular. Esto apunta a modelos ARIMA estacionales con <span class="math inline">\(d = 1\)</span> y <span class="math inline">\(D = 1\)</span>, que se compararán con el modelo ingenuo estacional y con ETS.</p>
 
 </div>
             </section>
@@ -188,7 +209,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           </div>
         </div>
       </div>
-<a href="estacionalidad.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="estacionariedad.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 <a href="fuentes.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
@@ -233,6 +254,20 @@ gitbook.start({
 });
 </script>
 
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
 </body>
 
 </html>

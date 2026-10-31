@@ -5,6 +5,8 @@
 - DANE. Metodología general de la EMC. https://www.dane.gov.co/files/operaciones/EMC/met-EMC.pdf
 - DANE. Términos y condiciones del portal. https://www.dane.gov.co/index.php/terminos-y-condiciones
 - Hyndman, R. J. y Athanasopoulos, G. (2021). *Forecasting: Principles and Practice* (3.ª ed.). OTexts. https://otexts.com/fpp3/
+- Hyndman, R. J. y Khandakar, Y. (2008). Automatic time series forecasting: the forecast package for R. *Journal of Statistical Software*, 27(3), 1-22. https://doi.org/10.18637/jss.v027.i03
+- Trapletti, A. y Hornik, K. *tseries: Time Series Analysis and Computational Finance* (paquete de R). https://CRAN.R-project.org/package=tseries
 - Xie, Y. (2016). *bookdown: Authoring Books and Technical Documents with R Markdown*. Chapman and Hall/CRC.
 
 Fuente de los datos: Departamento Administrativo Nacional de Estadística: www.dane.gov.co

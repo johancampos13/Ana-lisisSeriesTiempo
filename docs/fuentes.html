@@ -154,7 +154,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.2" data-path="estacionalidad.html"><a href="estacionalidad.html#subseries-por-mes"><i class="fa fa-check"></i><b>5.2</b> Subseries por mes</a></li>
 <li class="chapter" data-level="5.3" data-path="estacionalidad.html"><a href="estacionalidad.html#descomposici%C3%B3n"><i class="fa fa-check"></i><b>5.3</b> Descomposición</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="conclusiones.html"><a href="conclusiones.html"><i class="fa fa-check"></i><b>6</b> Conclusiones</a></li>
+<li class="chapter" data-level="6" data-path="transformacion.html"><a href="transformacion.html"><i class="fa fa-check"></i><b>6</b> Transformación de la serie</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="transformacion.html"><a href="transformacion.html#hace-falta-transformar"><i class="fa fa-check"></i><b>6.1</b> ¿Hace falta transformar?</a></li>
+<li class="chapter" data-level="6.2" data-path="transformacion.html"><a href="transformacion.html#por-qu%C3%A9-logaritmo-y-no-otra-transformaci%C3%B3n"><i class="fa fa-check"></i><b>6.2</b> ¿Por qué logaritmo y no otra transformación?</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="descomposicion.html"><a href="descomposicion.html"><i class="fa fa-check"></i><b>7</b> Descomposición</a></li>
+<li class="chapter" data-level="8" data-path="estacionariedad.html"><a href="estacionariedad.html"><i class="fa fa-check"></i><b>8</b> Estacionariedad y diferenciación</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="estacionariedad.html"><a href="estacionariedad.html#c%C3%B3mo-se-comprueba"><i class="fa fa-check"></i><b>8.1</b> Cómo se comprueba</a></li>
+<li class="chapter" data-level="8.2" data-path="estacionariedad.html"><a href="estacionariedad.html#paso-1-la-serie-en-logaritmos"><i class="fa fa-check"></i><b>8.2</b> Paso 1: la serie en logaritmos</a></li>
+<li class="chapter" data-level="8.3" data-path="estacionariedad.html"><a href="estacionariedad.html#paso-2-diferencia-estacional"><i class="fa fa-check"></i><b>8.3</b> Paso 2: diferencia estacional</a></li>
+<li class="chapter" data-level="8.4" data-path="estacionariedad.html"><a href="estacionariedad.html#paso-3-diferencia-regular"><i class="fa fa-check"></i><b>8.4</b> Paso 3: diferencia regular</a></li>
+<li class="chapter" data-level="8.5" data-path="estacionariedad.html"><a href="estacionariedad.html#resumen-del-procedimiento"><i class="fa fa-check"></i><b>8.5</b> Resumen del procedimiento</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="conclusiones.html"><a href="conclusiones.html"><i class="fa fa-check"></i><b>9</b> Conclusiones</a></li>
 <li class="chapter" data-level="" data-path="fuentes.html"><a href="fuentes.html"><i class="fa fa-check"></i>Fuentes</a></li>
 </ul>
 
@@ -181,6 +195,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>DANE. Metodología general de la EMC. <a href="https://www.dane.gov.co/files/operaciones/EMC/met-EMC.pdf" class="uri">https://www.dane.gov.co/files/operaciones/EMC/met-EMC.pdf</a></li>
 <li>DANE. Términos y condiciones del portal. <a href="https://www.dane.gov.co/index.php/terminos-y-condiciones" class="uri">https://www.dane.gov.co/index.php/terminos-y-condiciones</a></li>
 <li>Hyndman, R. J. y Athanasopoulos, G. (2021). <em>Forecasting: Principles and Practice</em> (3.ª ed.). OTexts. <a href="https://otexts.com/fpp3/" class="uri">https://otexts.com/fpp3/</a></li>
+<li>Hyndman, R. J. y Khandakar, Y. (2008). Automatic time series forecasting: the forecast package for R. <em>Journal of Statistical Software</em>, 27(3), 1-22. <a href="https://doi.org/10.18637/jss.v027.i03" class="uri">https://doi.org/10.18637/jss.v027.i03</a></li>
+<li>Trapletti, A. y Hornik, K. <em>tseries: Time Series Analysis and Computational Finance</em> (paquete de R). <a href="https://CRAN.R-project.org/package=tseries" class="uri">https://CRAN.R-project.org/package=tseries</a></li>
 <li>Xie, Y. (2016). <em>bookdown: Authoring Books and Technical Documents with R Markdown</em>. Chapman and Hall/CRC.</li>
 </ul>
 <p>Fuente de los datos: Departamento Administrativo Nacional de Estadística: www.dane.gov.co</p>
@@ -236,6 +252,20 @@ gitbook.start({
 });
 </script>
 
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
 </body>
 
 </html>

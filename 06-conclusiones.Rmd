@@ -1,7 +1,0 @@
-# Conclusiones
-
-- El promedio móvil de orden 12 elimina la estacionalidad y deja ver una tendencia creciente, con una caída en 2020 por la pandemia y otra en 2023.
-- Los rezagos muestran que el índice depende mucho de sus valores pasados, sobre todo del mismo mes del año anterior (rezago 12).
-- La estacionalidad es anual y estable: diciembre es el mes más alto y febrero y abril los más bajos.
-
-Como la serie tiene tendencia y estacionalidad, los modelos de la siguiente unidad deben incluir los dos componentes.

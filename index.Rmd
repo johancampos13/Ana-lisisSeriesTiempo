@@ -19,6 +19,8 @@ library(ggplot2)
 Este documento reúne los entregables del curso Análisis de Series de Tiempo. La serie de trabajo es el índice mensual de ventas reales del comercio minorista en Colombia, publicado por el DANE en la Encuesta Mensual de Comercio (EMC).
 
 - Unidad 1: propuesta (capítulo 1).
-- Unidad 2: promedio móvil, rezagos y estacionalidad (capítulos 2 a 6).
+- Unidad 2: promedio móvil, rezagos y estacionalidad (capítulos 2 a 5).
+- Unidad 3: transformación, descomposición, estacionariedad y diferenciación (capítulos 6 a 8).
+- Conclusiones de las unidades 2 y 3 (capítulo 9).
 
 Código y datos: https://github.com/johancampos13/Ana-lisisSeriesTiempo

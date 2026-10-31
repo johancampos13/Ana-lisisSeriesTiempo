@@ -9,4 +9,5 @@ dependencies:
   - r-forecast
   - r-ggplot2
   - r-readxl
+  - r-tseries
   - pandoc

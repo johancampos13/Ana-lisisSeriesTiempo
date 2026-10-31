@@ -7,17 +7,21 @@ Mini libro en bookdown sobre el índice mensual de ventas reales del comercio mi
 
 - **Libro:** https://johancampos13.github.io/Ana-lisisSeriesTiempo/
 - **Unidad 1 – Propuesta:** `propuesta.Rmd` → `propuesta.html` (también en el capítulo 1 del libro)
-- **Unidad 2 – Promedio móvil, rezagos y estacionalidad:** capítulos 2 a 6 del libro
+- **Unidad 2 – Promedio móvil, rezagos y estacionalidad:** capítulos 2 a 5 del libro
+- **Unidad 3 – Transformación, descomposición, estacionariedad y diferenciación:** capítulos 6 a 8 del libro
+- **Conclusiones:** capítulo 9
+- **PDF de las entregas:** [`entregables/`](entregables/) (Avance 2 y Avance 3)
 
 ## Estructura
 
 | Archivo | Contenido |
 |:--|:--|
-| `index.Rmd`, `01-*.Rmd` … `07-*.Rmd` | Capítulos del libro |
+| `index.Rmd`, `01-*.Rmd` … `10-*.Rmd` | Capítulos del libro |
 | `_bookdown.yml`, `_output.yml` | Configuración de bookdown |
 | `R/preparar_datos.R` | Extrae la serie del anexo del DANE y genera `datos/ventas_reales_minorista.csv` |
 | `R/compilar.R` | Compila el libro en `docs/` (carpeta publicada con GitHub Pages) |
 | `datos/` | Anexo original del DANE y serie de trabajo |
+| `entregables/` | PDF de cada avance entregado |
 
 ## Reproducir
 

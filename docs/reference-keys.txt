@@ -6,6 +6,11 @@ fig:acf-diff
 fig:estacional
 fig:subseries
 fig:desc
+fig:log
+fig:stl
+fig:acf-d12
+fig:etapas
+fig:acf-dd
 propuesta-unidad-1
 datos
 promedio-movil
@@ -16,4 +21,14 @@ estacionalidad
 gráfico-estacional
 subseries-por-mes
 descomposición
+transformacion
+hace-falta-transformar
+por-qué-logaritmo-y-no-otra-transformación
+descomposicion
+estacionariedad
+cómo-se-comprueba
+paso-1-la-serie-en-logaritmos
+paso-2-diferencia-estacional
+paso-3-diferencia-regular
+resumen-del-procedimiento
 conclusiones

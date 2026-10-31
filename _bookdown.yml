@@ -8,8 +8,11 @@ rmd_files:
   - 03-promedio-movil.Rmd
   - 04-rezagos.Rmd
   - 05-estacionalidad.Rmd
-  - 06-conclusiones.Rmd
-  - 07-fuentes.Rmd
+  - 06-transformacion.Rmd
+  - 07-descomposicion.Rmd
+  - 08-estacionariedad.Rmd
+  - 09-conclusiones.Rmd
+  - 10-fuentes.Rmd
 language:
   label:
     fig: "Figura "

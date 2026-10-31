@@ -1,0 +1,20 @@
+# Descomposición {#descomposicion}
+
+En la Unidad 2 se hizo una descomposición multiplicativa de la serie original. Ahora se descompone el logaritmo, y al trabajar en logaritmos la descomposición pasa a ser aditiva:
+
+$$\log(y_t) = \text{tendencia}_t + \text{estacionalidad}_t + \text{resto}_t$$
+
+Se usa el método STL, que estima cada componente con suavizamientos locales. Con la opción `robust = TRUE`, los meses atípicos de 2020 pesan menos y no deforman la tendencia ni la estacionalidad.
+
+```{r stl, fig.height=6, fig.cap="Descomposición STL del logaritmo del índice."}
+desc_log <- stl(ly, s.window = "periodic", robust = TRUE)
+autoplot(desc_log) + labs(x = "Año")
+```
+
+La Figura \@ref(fig:stl) muestra tres cosas:
+
+- **Tendencia:** sube durante casi todo el periodo. En 2020 solo se aplana, porque la caída de la pandemia queda en el resto, y en 2023 baja un poco antes de volver a subir. Que la serie tenga tendencia significa que su promedio cambia con el tiempo.
+- **Estacionalidad:** es la misma todos los años, con diciembre muy por encima de los demás meses. Es un patrón fuerte y estable.
+- **Resto:** se mantiene cerca de cero, salvo en 2020 y 2021, cuando la pandemia sacó la serie de su comportamiento normal.
+
+La descomposición deja claro qué hay que controlar antes de modelar: la tendencia y la estacionalidad. Mientras estén presentes, la serie no puede ser estacionaria, y eso es lo que se comprueba en el siguiente capítulo.

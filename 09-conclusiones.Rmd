@@ -1,0 +1,15 @@
+# Conclusiones
+
+**Unidad 2**
+
+- El promedio móvil de orden 12 elimina la estacionalidad y deja ver una tendencia creciente, con una caída en 2020 por la pandemia y otra en 2023.
+- Los rezagos muestran que el índice depende mucho de sus valores pasados, sobre todo del mismo mes del año anterior (rezago 12).
+- La estacionalidad es anual y estable: diciembre es el mes más alto y febrero y abril los más bajos.
+
+**Unidad 3**
+
+- La variabilidad de la serie crece con su nivel, por eso se trabajó con el logaritmo.
+- La descomposición STL confirma una tendencia creciente y una estacionalidad estable, y deja los efectos de la pandemia en el componente de resto.
+- La serie en logaritmos no es estacionaria. Necesita una diferencia estacional y una regular; después de las dos, las pruebas ADF y KPSS coinciden en que es estacionaria.
+
+Para la siguiente unidad, la serie de trabajo será el logaritmo del índice con una diferencia estacional y una regular. Esto apunta a modelos ARIMA estacionales con $d = 1$ y $D = 1$, que se compararán con el modelo ingenuo estacional y con ETS.
