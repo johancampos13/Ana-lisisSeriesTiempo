@@ -12,4 +12,10 @@
 - La descomposición STL confirma una tendencia creciente y una estacionalidad estable, y deja los efectos de la pandemia en el componente de resto.
 - La serie en logaritmos no es estacionaria. Necesita una diferencia estacional y una regular; después de las dos, las pruebas ADF y KPSS coinciden en que es estacionaria.
 
-Para la siguiente unidad, la serie de trabajo será el logaritmo del índice con una diferencia estacional y una regular. Esto apunta a modelos ARIMA estacionales con $d = 1$ y $D = 1$, que se compararán con el modelo ingenuo estacional y con ETS.
+**Unidad 4**
+
+- Los métodos sin estacionalidad (suavizamiento simple y Holt) no sirven para esta serie: no ven el pico de diciembre y su error en la prueba pasa del 6 %.
+- Holt-Winters baja el error a cerca del 3 %. El mejor modelo es Holt-Winters sobre el logaritmo, con un MAPE de 2,45 %. Esto confirma que trabajar en logaritmos, como se decidió en la Unidad 3, también mejora el pronóstico.
+- El modelo proyecta que el índice siga creciendo hasta agosto de 2027, con el pico usual en diciembre de 2026.
+
+Lo que sigue es ajustar un modelo ARIMA estacional sobre el logaritmo con $d = 1$ y $D = 1$, como se concluyó en la Unidad 3, y compararlo con Holt-Winters sobre el mismo periodo de prueba.

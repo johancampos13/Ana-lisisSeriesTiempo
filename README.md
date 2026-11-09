@@ -9,17 +9,19 @@ Mini libro en bookdown sobre el índice mensual de ventas reales del comercio mi
 - **Unidad 1 – Propuesta:** `propuesta.Rmd` → `propuesta.html` (también en el capítulo 1 del libro)
 - **Unidad 2 – Promedio móvil, rezagos y estacionalidad:** capítulos 2 a 5 del libro
 - **Unidad 3 – Transformación, descomposición, estacionariedad y diferenciación:** capítulos 6 a 8 del libro
-- **Conclusiones:** capítulo 9
-- **PDF de las entregas:** [`entregables/`](entregables/) (Avance 2 y Avance 3)
+- **Unidad 4 – Suavizamiento exponencial y Holt-Winters:** capítulo 9 del libro
+- **Conclusiones:** capítulo 10
+- **PDF de las entregas:** [`entregables/`](entregables/) (Avances 2, 3 y 4)
 
 ## Estructura
 
 | Archivo | Contenido |
 |:--|:--|
-| `index.Rmd`, `01-*.Rmd` … `10-*.Rmd` | Capítulos del libro |
+| `index.Rmd`, `01-*.Rmd` … `11-*.Rmd` | Capítulos del libro |
 | `_bookdown.yml`, `_output.yml` | Configuración de bookdown |
 | `R/preparar_datos.R` | Extrae la serie del anexo del DANE y genera `datos/ventas_reales_minorista.csv` |
 | `R/compilar.R` | Compila el libro en `docs/` (carpeta publicada con GitHub Pages) |
+| `R/exportar_pdf.R` | Genera el PDF del libro en `entregables/` (usa Chrome) |
 | `datos/` | Anexo original del DANE y serie de trabajo |
 | `entregables/` | PDF de cada avance entregado |
 
@@ -32,6 +34,7 @@ conda env create -f environment.yml
 conda activate series-tiempo
 Rscript R/preparar_datos.R   # opcional: el CSV ya está en datos/
 Rscript R/compilar.R
+Rscript R/exportar_pdf.R     # PDF del libro en entregables/
 ```
 
 Para la propuesta de la Unidad 1 como documento independiente: `Rscript -e 'rmarkdown::render("propuesta.Rmd")'`. Para imprimirla en una página, seleccione tamaño carta y escala 100 % en el diálogo de impresión; los estilos de impresión están en `propuesta.css`.

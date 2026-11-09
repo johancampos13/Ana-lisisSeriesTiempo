@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Capítulo 9 Conclusiones | Pronóstico de ventas reales del comercio minorista en Colombia</title>
-  <meta name="description" content="Capítulo 9 Conclusiones | Pronóstico de ventas reales del comercio minorista en Colombia" />
+  <title>Capítulo 10 Conclusiones | Pronóstico de ventas reales del comercio minorista en Colombia</title>
+  <meta name="description" content="Capítulo 10 Conclusiones | Pronóstico de ventas reales del comercio minorista en Colombia" />
   <meta name="generator" content="bookdown 0.48 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Capítulo 9 Conclusiones | Pronóstico de ventas reales del comercio minorista en Colombia" />
+  <meta property="og:title" content="Capítulo 10 Conclusiones | Pronóstico de ventas reales del comercio minorista en Colombia" />
   <meta property="og:type" content="book" />
   
   
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Capítulo 9 Conclusiones | Pronóstico de ventas reales del comercio minorista en Colombia" />
+  <meta name="twitter:title" content="Capítulo 10 Conclusiones | Pronóstico de ventas reales del comercio minorista en Colombia" />
   
   
   
@@ -29,7 +29,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="estacionariedad.html"/>
+<link rel="prev" href="suavizamiento.html"/>
 <link rel="next" href="fuentes.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -168,7 +168,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="8.4" data-path="estacionariedad.html"><a href="estacionariedad.html#paso-3-diferencia-regular"><i class="fa fa-check"></i><b>8.4</b> Paso 3: diferencia regular</a></li>
 <li class="chapter" data-level="8.5" data-path="estacionariedad.html"><a href="estacionariedad.html#resumen-del-procedimiento"><i class="fa fa-check"></i><b>8.5</b> Resumen del procedimiento</a></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="conclusiones.html"><a href="conclusiones.html"><i class="fa fa-check"></i><b>9</b> Conclusiones</a></li>
+<li class="chapter" data-level="9" data-path="suavizamiento.html"><a href="suavizamiento.html"><i class="fa fa-check"></i><b>9</b> Suavizamiento exponencial y Holt-Winters</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="suavizamiento.html"><a href="suavizamiento.html#procedimiento"><i class="fa fa-check"></i><b>9.1</b> Procedimiento</a></li>
+<li class="chapter" data-level="9.2" data-path="suavizamiento.html"><a href="suavizamiento.html#entrenamiento-y-prueba"><i class="fa fa-check"></i><b>9.2</b> Entrenamiento y prueba</a></li>
+<li class="chapter" data-level="9.3" data-path="suavizamiento.html"><a href="suavizamiento.html#modelos"><i class="fa fa-check"></i><b>9.3</b> Modelos</a></li>
+<li class="chapter" data-level="9.4" data-path="suavizamiento.html"><a href="suavizamiento.html#comparaci%C3%B3n"><i class="fa fa-check"></i><b>9.4</b> Comparación</a></li>
+<li class="chapter" data-level="9.5" data-path="suavizamiento.html"><a href="suavizamiento.html#modelo-elegido"><i class="fa fa-check"></i><b>9.5</b> Modelo elegido</a></li>
+<li class="chapter" data-level="9.6" data-path="suavizamiento.html"><a href="suavizamiento.html#pron%C3%B3stico"><i class="fa fa-check"></i><b>9.6</b> Pronóstico</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="conclusiones.html"><a href="conclusiones.html"><i class="fa fa-check"></i><b>10</b> Conclusiones</a></li>
 <li class="chapter" data-level="" data-path="fuentes.html"><a href="fuentes.html"><i class="fa fa-check"></i>Fuentes</a></li>
 </ul>
 
@@ -187,8 +196,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="conclusiones" class="section level1 hasAnchor" number="9">
-<h1><span class="header-section-number">Capítulo 9</span> Conclusiones<a href="conclusiones.html#conclusiones" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="conclusiones" class="section level1 hasAnchor" number="10">
+<h1><span class="header-section-number">Capítulo 10</span> Conclusiones<a href="conclusiones.html#conclusiones" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p><strong>Unidad 2</strong></p>
 <ul>
 <li>El promedio móvil de orden 12 elimina la estacionalidad y deja ver una tendencia creciente, con una caída en 2020 por la pandemia y otra en 2023.</li>
@@ -201,7 +210,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>La descomposición STL confirma una tendencia creciente y una estacionalidad estable, y deja los efectos de la pandemia en el componente de resto.</li>
 <li>La serie en logaritmos no es estacionaria. Necesita una diferencia estacional y una regular; después de las dos, las pruebas ADF y KPSS coinciden en que es estacionaria.</li>
 </ul>
-<p>Para la siguiente unidad, la serie de trabajo será el logaritmo del índice con una diferencia estacional y una regular. Esto apunta a modelos ARIMA estacionales con <span class="math inline">\(d = 1\)</span> y <span class="math inline">\(D = 1\)</span>, que se compararán con el modelo ingenuo estacional y con ETS.</p>
+<p><strong>Unidad 4</strong></p>
+<ul>
+<li>Los métodos sin estacionalidad (suavizamiento simple y Holt) no sirven para esta serie: no ven el pico de diciembre y su error en la prueba pasa del 6 %.</li>
+<li>Holt-Winters baja el error a cerca del 3 %. El mejor modelo es Holt-Winters sobre el logaritmo, con un MAPE de 2,45 %. Esto confirma que trabajar en logaritmos, como se decidió en la Unidad 3, también mejora el pronóstico.</li>
+<li>El modelo proyecta que el índice siga creciendo hasta agosto de 2027, con el pico usual en diciembre de 2026.</li>
+</ul>
+<p>Lo que sigue es ajustar un modelo ARIMA estacional sobre el logaritmo con <span class="math inline">\(d = 1\)</span> y <span class="math inline">\(D = 1\)</span>, como se concluyó en la Unidad 3, y compararlo con Holt-Winters sobre el mismo periodo de prueba.</p>
 
 </div>
             </section>
@@ -209,7 +224,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           </div>
         </div>
       </div>
-<a href="estacionariedad.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="suavizamiento.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 <a href="fuentes.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>

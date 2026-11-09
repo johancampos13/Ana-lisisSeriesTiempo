@@ -11,8 +11,9 @@ rmd_files:
   - 06-transformacion.Rmd
   - 07-descomposicion.Rmd
   - 08-estacionariedad.Rmd
-  - 09-conclusiones.Rmd
-  - 10-fuentes.Rmd
+  - 09-suavizamiento.Rmd
+  - 10-conclusiones.Rmd
+  - 11-fuentes.Rmd
 language:
   label:
     fig: "Figura "

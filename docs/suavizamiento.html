@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="es" xml:lang="es">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Capítulo 9 Suavizamiento exponencial y Holt-Winters | Pronóstico de ventas reales del comercio minorista en Colombia</title>
+  <meta name="description" content="Capítulo 9 Suavizamiento exponencial y Holt-Winters | Pronóstico de ventas reales del comercio minorista en Colombia" />
+  <meta name="generator" content="bookdown 0.48 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Capítulo 9 Suavizamiento exponencial y Holt-Winters | Pronóstico de ventas reales del comercio minorista en Colombia" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Capítulo 9 Suavizamiento exponencial y Holt-Winters | Pronóstico de ventas reales del comercio minorista en Colombia" />
+  
+  
+  
+
+<meta name="author" content="Johan David Perdomo Campos" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="estacionariedad.html"/>
+<link rel="next" href="conclusiones.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><strong>Análisis de Series de Tiempo</strong></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Presentación</a></li>
+<li class="chapter" data-level="1" data-path="propuesta-unidad-1.html"><a href="propuesta-unidad-1.html"><i class="fa fa-check"></i><b>1</b> Propuesta (Unidad 1)</a></li>
+<li class="chapter" data-level="2" data-path="datos.html"><a href="datos.html"><i class="fa fa-check"></i><b>2</b> Los datos</a></li>
+<li class="chapter" data-level="3" data-path="promedio-movil.html"><a href="promedio-movil.html"><i class="fa fa-check"></i><b>3</b> Promedio móvil</a></li>
+<li class="chapter" data-level="4" data-path="rezagos.html"><a href="rezagos.html"><i class="fa fa-check"></i><b>4</b> Rezagos</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="rezagos.html"><a href="rezagos.html#gr%C3%A1fico-de-rezagos"><i class="fa fa-check"></i><b>4.1</b> Gráfico de rezagos</a></li>
+<li class="chapter" data-level="4.2" data-path="rezagos.html"><a href="rezagos.html#autocorrelaci%C3%B3n"><i class="fa fa-check"></i><b>4.2</b> Autocorrelación</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="estacionalidad.html"><a href="estacionalidad.html"><i class="fa fa-check"></i><b>5</b> Estacionalidad</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="estacionalidad.html"><a href="estacionalidad.html#gr%C3%A1fico-estacional"><i class="fa fa-check"></i><b>5.1</b> Gráfico estacional</a></li>
+<li class="chapter" data-level="5.2" data-path="estacionalidad.html"><a href="estacionalidad.html#subseries-por-mes"><i class="fa fa-check"></i><b>5.2</b> Subseries por mes</a></li>
+<li class="chapter" data-level="5.3" data-path="estacionalidad.html"><a href="estacionalidad.html#descomposici%C3%B3n"><i class="fa fa-check"></i><b>5.3</b> Descomposición</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="transformacion.html"><a href="transformacion.html"><i class="fa fa-check"></i><b>6</b> Transformación de la serie</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="transformacion.html"><a href="transformacion.html#hace-falta-transformar"><i class="fa fa-check"></i><b>6.1</b> ¿Hace falta transformar?</a></li>
+<li class="chapter" data-level="6.2" data-path="transformacion.html"><a href="transformacion.html#por-qu%C3%A9-logaritmo-y-no-otra-transformaci%C3%B3n"><i class="fa fa-check"></i><b>6.2</b> ¿Por qué logaritmo y no otra transformación?</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="descomposicion.html"><a href="descomposicion.html"><i class="fa fa-check"></i><b>7</b> Descomposición</a></li>
+<li class="chapter" data-level="8" data-path="estacionariedad.html"><a href="estacionariedad.html"><i class="fa fa-check"></i><b>8</b> Estacionariedad y diferenciación</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="estacionariedad.html"><a href="estacionariedad.html#c%C3%B3mo-se-comprueba"><i class="fa fa-check"></i><b>8.1</b> Cómo se comprueba</a></li>
+<li class="chapter" data-level="8.2" data-path="estacionariedad.html"><a href="estacionariedad.html#paso-1-la-serie-en-logaritmos"><i class="fa fa-check"></i><b>8.2</b> Paso 1: la serie en logaritmos</a></li>
+<li class="chapter" data-level="8.3" data-path="estacionariedad.html"><a href="estacionariedad.html#paso-2-diferencia-estacional"><i class="fa fa-check"></i><b>8.3</b> Paso 2: diferencia estacional</a></li>
+<li class="chapter" data-level="8.4" data-path="estacionariedad.html"><a href="estacionariedad.html#paso-3-diferencia-regular"><i class="fa fa-check"></i><b>8.4</b> Paso 3: diferencia regular</a></li>
+<li class="chapter" data-level="8.5" data-path="estacionariedad.html"><a href="estacionariedad.html#resumen-del-procedimiento"><i class="fa fa-check"></i><b>8.5</b> Resumen del procedimiento</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="suavizamiento.html"><a href="suavizamiento.html"><i class="fa fa-check"></i><b>9</b> Suavizamiento exponencial y Holt-Winters</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="suavizamiento.html"><a href="suavizamiento.html#procedimiento"><i class="fa fa-check"></i><b>9.1</b> Procedimiento</a></li>
+<li class="chapter" data-level="9.2" data-path="suavizamiento.html"><a href="suavizamiento.html#entrenamiento-y-prueba"><i class="fa fa-check"></i><b>9.2</b> Entrenamiento y prueba</a></li>
+<li class="chapter" data-level="9.3" data-path="suavizamiento.html"><a href="suavizamiento.html#modelos"><i class="fa fa-check"></i><b>9.3</b> Modelos</a></li>
+<li class="chapter" data-level="9.4" data-path="suavizamiento.html"><a href="suavizamiento.html#comparaci%C3%B3n"><i class="fa fa-check"></i><b>9.4</b> Comparación</a></li>
+<li class="chapter" data-level="9.5" data-path="suavizamiento.html"><a href="suavizamiento.html#modelo-elegido"><i class="fa fa-check"></i><b>9.5</b> Modelo elegido</a></li>
+<li class="chapter" data-level="9.6" data-path="suavizamiento.html"><a href="suavizamiento.html#pron%C3%B3stico"><i class="fa fa-check"></i><b>9.6</b> Pronóstico</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="conclusiones.html"><a href="conclusiones.html"><i class="fa fa-check"></i><b>10</b> Conclusiones</a></li>
+<li class="chapter" data-level="" data-path="fuentes.html"><a href="fuentes.html"><i class="fa fa-check"></i>Fuentes</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Pronóstico de ventas reales del comercio minorista en Colombia</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="suavizamiento" class="section level1 hasAnchor" number="9">
+<h1><span class="header-section-number">Capítulo 9</span> Suavizamiento exponencial y Holt-Winters<a href="suavizamiento.html#suavizamiento" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>A partir de este capítulo empieza la Unidad 4 y, con ella, los pronósticos. El promedio móvil del capítulo <a href="promedio-movil.html#promedio-movil">3</a> le da el mismo peso a todos los meses que promedia. El <strong>suavizamiento exponencial</strong> también promedia el pasado, pero da más peso a los meses recientes y cada vez menos a los antiguos.</p>
+<p>Hay tres versiones, y cada una agrega un componente de la serie:</p>
+<table>
+<colgroup>
+<col width="33%" />
+<col width="33%" />
+<col width="33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Método</th>
+<th align="left">Qué sigue</th>
+<th align="left">Parámetro que lo controla</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Suavizamiento simple</td>
+<td align="left">Solo el nivel</td>
+<td align="left"><span class="math inline">\(\alpha\)</span> (nivel)</td>
+</tr>
+<tr class="even">
+<td align="left">Holt</td>
+<td align="left">Nivel y tendencia</td>
+<td align="left"><span class="math inline">\(\alpha\)</span> y <span class="math inline">\(\beta\)</span> (tendencia)</td>
+</tr>
+<tr class="odd">
+<td align="left">Holt-Winters</td>
+<td align="left">Nivel, tendencia y estacionalidad</td>
+<td align="left"><span class="math inline">\(\alpha\)</span>, <span class="math inline">\(\beta\)</span> y <span class="math inline">\(\gamma\)</span> (estacionalidad)</td>
+</tr>
+</tbody>
+</table>
+<p>Los parámetros van de 0 a 1. Cerca de 1, el modelo se ajusta rápido a lo último que pasó. Cerca de 0, el componente casi no cambia en el tiempo. R los estima solo, buscando los valores que mejor reproducen la serie.</p>
+<p>Holt-Winters puede tratar la estacionalidad de dos formas. En la <strong>aditiva</strong>, el pico de diciembre suma siempre más o menos lo mismo. En la <strong>multiplicativa</strong>, el pico crece con el nivel de la serie. En el capítulo <a href="transformacion.html#transformacion">6</a> se vio que esta serie se comporta como el segundo caso. Por eso también se prueba Holt-Winters aditivo sobre el logaritmo, que equivale a una estacionalidad proporcional.</p>
+<div id="procedimiento" class="section level2 hasAnchor" number="9.1">
+<h2><span class="header-section-number">9.1</span> Procedimiento<a href="suavizamiento.html#procedimiento" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ol style="list-style-type: decimal">
+<li>Separar la serie en un periodo de entrenamiento y uno de prueba.</li>
+<li>Ajustar los modelos con el periodo de entrenamiento y pronosticar el periodo de prueba.</li>
+<li>Comparar los pronósticos con los datos reales y elegir el modelo con menor error.</li>
+<li>Volver a ajustar el modelo elegido con toda la serie y pronosticar los siguientes 12 meses.</li>
+</ol>
+</div>
+<div id="entrenamiento-y-prueba" class="section level2 hasAnchor" number="9.2">
+<h2><span class="header-section-number">9.2</span> Entrenamiento y prueba<a href="suavizamiento.html#entrenamiento-y-prueba" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Se guardan los últimos 12 meses (septiembre de 2025 a agosto de 2026) como prueba. Así la evaluación cubre un año completo, incluido diciembre, el mes más difícil de pronosticar.</p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="suavizamiento.html#cb30-1" tabindex="-1"></a>train <span class="ot">&lt;-</span> <span class="fu">window</span>(y, <span class="at">end =</span> <span class="fu">c</span>(<span class="dv">2025</span>, <span class="dv">8</span>))</span>
+<span id="cb30-2"><a href="suavizamiento.html#cb30-2" tabindex="-1"></a>test  <span class="ot">&lt;-</span> <span class="fu">window</span>(y, <span class="at">start =</span> <span class="fu">c</span>(<span class="dv">2025</span>, <span class="dv">9</span>))</span>
+<span id="cb30-3"><a href="suavizamiento.html#cb30-3" tabindex="-1"></a>h <span class="ot">&lt;-</span> <span class="fu">length</span>(test)</span></code></pre></div>
+</div>
+<div id="modelos" class="section level2 hasAnchor" number="9.3">
+<h2><span class="header-section-number">9.3</span> Modelos<a href="suavizamiento.html#modelos" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Se ajustan cinco modelos de suavizamiento. Como punto de comparación se agrega el modelo ingenuo estacional de la propuesta, que pronostica cada mes con el valor del mismo mes del año anterior.</p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="suavizamiento.html#cb31-1" tabindex="-1"></a>modelos <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb31-2"><a href="suavizamiento.html#cb31-2" tabindex="-1"></a>  <span class="st">&quot;Simple&quot;</span>                  <span class="ot">=</span> <span class="fu">ses</span>(train, <span class="at">h =</span> h),</span>
+<span id="cb31-3"><a href="suavizamiento.html#cb31-3" tabindex="-1"></a>  <span class="st">&quot;Holt&quot;</span>                    <span class="ot">=</span> <span class="fu">holt</span>(train, <span class="at">h =</span> h),</span>
+<span id="cb31-4"><a href="suavizamiento.html#cb31-4" tabindex="-1"></a>  <span class="st">&quot;Holt-Winters aditivo&quot;</span>    <span class="ot">=</span> <span class="fu">hw</span>(train, <span class="at">h =</span> h, <span class="at">seasonal =</span> <span class="st">&quot;additive&quot;</span>),</span>
+<span id="cb31-5"><a href="suavizamiento.html#cb31-5" tabindex="-1"></a>  <span class="st">&quot;Holt-Winters multiplic.&quot;</span> <span class="ot">=</span> <span class="fu">hw</span>(train, <span class="at">h =</span> h, <span class="at">seasonal =</span> <span class="st">&quot;multiplicative&quot;</span>),</span>
+<span id="cb31-6"><a href="suavizamiento.html#cb31-6" tabindex="-1"></a>  <span class="st">&quot;Holt-Winters sobre log&quot;</span>  <span class="ot">=</span> <span class="fu">hw</span>(train, <span class="at">h =</span> h, <span class="at">seasonal =</span> <span class="st">&quot;additive&quot;</span>, <span class="at">lambda =</span> <span class="dv">0</span>),</span>
+<span id="cb31-7"><a href="suavizamiento.html#cb31-7" tabindex="-1"></a>  <span class="st">&quot;Ingenuo estacional&quot;</span>      <span class="ot">=</span> <span class="fu">snaive</span>(train, <span class="at">h =</span> h)</span>
+<span id="cb31-8"><a href="suavizamiento.html#cb31-8" tabindex="-1"></a>)</span></code></pre></div>
+</div>
+<div id="comparación" class="section level2 hasAnchor" number="9.4">
+<h2><span class="header-section-number">9.4</span> Comparación<a href="suavizamiento.html#comparaci%C3%B3n" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Cada pronóstico se compara con los datos reales de la prueba usando dos medidas de error: el RMSE, en puntos del índice, y el MAPE, que es el error promedio en porcentaje.</p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="suavizamiento.html#cb32-1" tabindex="-1"></a>errores <span class="ot">&lt;-</span> <span class="fu">t</span>(<span class="fu">sapply</span>(modelos, <span class="cf">function</span>(m) <span class="fu">accuracy</span>(m, test)[<span class="st">&quot;Test set&quot;</span>, <span class="fu">c</span>(<span class="st">&quot;RMSE&quot;</span>, <span class="st">&quot;MAPE&quot;</span>)]))</span>
+<span id="cb32-2"><a href="suavizamiento.html#cb32-2" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(errores[<span class="fu">order</span>(errores[, <span class="st">&quot;RMSE&quot;</span>]), ], <span class="at">digits =</span> <span class="dv">2</span>,</span>
+<span id="cb32-3"><a href="suavizamiento.html#cb32-3" tabindex="-1"></a>             <span class="at">caption =</span> <span class="st">&quot;Error de cada modelo en el periodo de prueba.&quot;</span>)</span></code></pre></div>
+<table>
+<caption><span id="tab:errores">Tabla 9.1: </span>Error de cada modelo en el periodo de prueba.</caption>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right">RMSE</th>
+<th align="right">MAPE</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Holt-Winters sobre log</td>
+<td align="right">4.64</td>
+<td align="right">2.45</td>
+</tr>
+<tr class="even">
+<td align="left">Holt-Winters aditivo</td>
+<td align="right">5.12</td>
+<td align="right">3.08</td>
+</tr>
+<tr class="odd">
+<td align="left">Holt-Winters multiplic.</td>
+<td align="right">5.43</td>
+<td align="right">3.13</td>
+</tr>
+<tr class="even">
+<td align="left">Ingenuo estacional</td>
+<td align="right">12.14</td>
+<td align="right">8.72</td>
+</tr>
+<tr class="odd">
+<td align="left">Holt</td>
+<td align="right">13.82</td>
+<td align="right">6.19</td>
+</tr>
+<tr class="even">
+<td align="left">Simple</td>
+<td align="right">15.15</td>
+<td align="right">7.42</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="suavizamiento.html#cb33-1" tabindex="-1"></a><span class="fu">autoplot</span>(<span class="fu">window</span>(y, <span class="at">start =</span> <span class="dv">2022</span>), <span class="at">series =</span> <span class="st">&quot;Real&quot;</span>) <span class="sc">+</span></span>
+<span id="cb33-2"><a href="suavizamiento.html#cb33-2" tabindex="-1"></a>  <span class="fu">autolayer</span>(modelos[[<span class="st">&quot;Holt-Winters aditivo&quot;</span>]]<span class="sc">$</span>mean, <span class="at">series =</span> <span class="st">&quot;HW aditivo&quot;</span>) <span class="sc">+</span></span>
+<span id="cb33-3"><a href="suavizamiento.html#cb33-3" tabindex="-1"></a>  <span class="fu">autolayer</span>(modelos[[<span class="st">&quot;Holt-Winters multiplic.&quot;</span>]]<span class="sc">$</span>mean, <span class="at">series =</span> <span class="st">&quot;HW multiplicativo&quot;</span>) <span class="sc">+</span></span>
+<span id="cb33-4"><a href="suavizamiento.html#cb33-4" tabindex="-1"></a>  <span class="fu">autolayer</span>(modelos[[<span class="st">&quot;Holt-Winters sobre log&quot;</span>]]<span class="sc">$</span>mean, <span class="at">series =</span> <span class="st">&quot;HW sobre log&quot;</span>) <span class="sc">+</span></span>
+<span id="cb33-5"><a href="suavizamiento.html#cb33-5" tabindex="-1"></a>  <span class="fu">scale_colour_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="at">Real =</span> <span class="st">&quot;black&quot;</span>, <span class="st">&quot;HW aditivo&quot;</span> <span class="ot">=</span> <span class="st">&quot;orange&quot;</span>,</span>
+<span id="cb33-6"><a href="suavizamiento.html#cb33-6" tabindex="-1"></a>                                 <span class="st">&quot;HW multiplicativo&quot;</span> <span class="ot">=</span> <span class="st">&quot;steelblue&quot;</span>, <span class="st">&quot;HW sobre log&quot;</span> <span class="ot">=</span> <span class="st">&quot;darkred&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb33-7"><a href="suavizamiento.html#cb33-7" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Año&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Índice&quot;</span>, <span class="at">colour =</span> <span class="st">&quot;&quot;</span>)</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:prueba"></span>
+<img src="pronostico-ventas-minoristas_files/figure-html/prueba-1.png" alt="Pronósticos de los tres modelos Holt-Winters en el periodo de prueba." width="768" />
+<p class="caption">
+Figura 9.1: Pronósticos de los tres modelos Holt-Winters en el periodo de prueba.
+</p>
+</div>
+<p>La Tabla <a href="suavizamiento.html#tab:errores">9.1</a> muestra tres grupos:</p>
+<ul>
+<li><strong>Simple y Holt</strong> fallan por mucho (MAPE de 7,4 % y 6,2 %). No tienen estacionalidad, así que pronostican una línea casi recta y no ven el pico de diciembre.</li>
+<li><strong>El ingenuo estacional</strong> también queda lejos (8,7 %), porque repite el año anterior y no recoge el crecimiento de la serie.</li>
+<li><strong>Los tres Holt-Winters</strong> bajan el error a cerca del 3 %. La diferencia la hace la estacionalidad.</li>
+</ul>
+<p>El mejor es <strong>Holt-Winters sobre el logaritmo</strong>, con un MAPE de 2,45 %. En la Figura <a href="suavizamiento.html#fig:prueba">9.1</a> es el que mejor acierta el pico de diciembre de 2025. Los otros dos se quedan cortos. Los tres fallan de forma parecida entre abril y mayo de 2026, cuando las ventas subieron más de lo que mostraba su historia.</p>
+</div>
+<div id="modelo-elegido" class="section level2 hasAnchor" number="9.5">
+<h2><span class="header-section-number">9.5</span> Modelo elegido<a href="suavizamiento.html#modelo-elegido" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Se vuelve a ajustar Holt-Winters sobre el logaritmo, ahora con toda la serie, y se pronostican los siguientes 12 meses:</p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="suavizamiento.html#cb34-1" tabindex="-1"></a>final <span class="ot">&lt;-</span> <span class="fu">hw</span>(y, <span class="at">h =</span> <span class="dv">12</span>, <span class="at">seasonal =</span> <span class="st">&quot;additive&quot;</span>, <span class="at">lambda =</span> <span class="dv">0</span>)</span>
+<span id="cb34-2"><a href="suavizamiento.html#cb34-2" tabindex="-1"></a><span class="fu">round</span>(final<span class="sc">$</span>model<span class="sc">$</span>par[<span class="fu">c</span>(<span class="st">&quot;alpha&quot;</span>, <span class="st">&quot;beta&quot;</span>, <span class="st">&quot;gamma&quot;</span>)], <span class="dv">3</span>)</span></code></pre></div>
+<pre><code>## alpha  beta gamma 
+## 0.698 0.001 0.000</code></pre>
+<p>Los parámetros se leen así:</p>
+<ul>
+<li><strong><span class="math inline">\(\alpha\)</span> alto:</strong> el nivel se ajusta rápido a los últimos meses.</li>
+<li><strong><span class="math inline">\(\beta\)</span> y <span class="math inline">\(\gamma\)</span> casi en cero:</strong> el ritmo de crecimiento y el patrón de cada mes casi no cambian en el tiempo. Esto coincide con la descomposición del capítulo <a href="descomposicion.html#descomposicion">7</a>, que mostró una tendencia constante y una estacionalidad estable.</li>
+</ul>
+</div>
+<div id="pronóstico" class="section level2 hasAnchor" number="9.6">
+<h2><span class="header-section-number">9.6</span> Pronóstico<a href="suavizamiento.html#pron%C3%B3stico" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="suavizamiento.html#cb36-1" tabindex="-1"></a><span class="fu">autoplot</span>(final, <span class="at">include =</span> <span class="dv">60</span>) <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Año&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Índice&quot;</span>)</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:pronostico"></span>
+<img src="pronostico-ventas-minoristas_files/figure-html/pronostico-1.png" alt="Pronóstico de septiembre de 2026 a agosto de 2027 con intervalos de 80 % y 95 %." width="768" />
+<p class="caption">
+Figura 9.2: Pronóstico de septiembre de 2026 a agosto de 2027 con intervalos de 80 % y 95 %.
+</p>
+</div>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="suavizamiento.html#cb37-1" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="fu">as.data.frame</span>(final), <span class="at">digits =</span> <span class="dv">1</span>,</span>
+<span id="cb37-2"><a href="suavizamiento.html#cb37-2" tabindex="-1"></a>             <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">&quot;Pronóstico&quot;</span>, <span class="st">&quot;Inf. 80 %&quot;</span>, <span class="st">&quot;Sup. 80 %&quot;</span>, <span class="st">&quot;Inf. 95 %&quot;</span>, <span class="st">&quot;Sup. 95 %&quot;</span>),</span>
+<span id="cb37-3"><a href="suavizamiento.html#cb37-3" tabindex="-1"></a>             <span class="at">caption =</span> <span class="st">&quot;Pronóstico del índice de ventas reales (2019 = 100).&quot;</span>)</span></code></pre></div>
+<table>
+<caption><span id="tab:tabla-pronostico">Tabla 9.2: </span>Pronóstico del índice de ventas reales (2019 = 100).</caption>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right">Pronóstico</th>
+<th align="right">Inf. 80 %</th>
+<th align="right">Sup. 80 %</th>
+<th align="right">Inf. 95 %</th>
+<th align="right">Sup. 95 %</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Sep 2026</td>
+<td align="right">135.7</td>
+<td align="right">126.5</td>
+<td align="right">145.7</td>
+<td align="right">121.8</td>
+<td align="right">151.2</td>
+</tr>
+<tr class="even">
+<td align="left">Oct 2026</td>
+<td align="right">140.7</td>
+<td align="right">129.0</td>
+<td align="right">153.3</td>
+<td align="right">123.3</td>
+<td align="right">160.5</td>
+</tr>
+<tr class="odd">
+<td align="left">Nov 2026</td>
+<td align="right">147.2</td>
+<td align="right">133.3</td>
+<td align="right">162.6</td>
+<td align="right">126.4</td>
+<td align="right">171.3</td>
+</tr>
+<tr class="even">
+<td align="left">Dec 2026</td>
+<td align="right">181.2</td>
+<td align="right">162.1</td>
+<td align="right">202.4</td>
+<td align="right">152.9</td>
+<td align="right">214.7</td>
+</tr>
+<tr class="odd">
+<td align="left">Jan 2027</td>
+<td align="right">135.0</td>
+<td align="right">119.5</td>
+<td align="right">152.5</td>
+<td align="right">112.1</td>
+<td align="right">162.6</td>
+</tr>
+<tr class="even">
+<td align="left">Feb 2027</td>
+<td align="right">130.6</td>
+<td align="right">114.5</td>
+<td align="right">149.0</td>
+<td align="right">106.9</td>
+<td align="right">159.7</td>
+</tr>
+<tr class="odd">
+<td align="left">Mar 2027</td>
+<td align="right">140.2</td>
+<td align="right">121.8</td>
+<td align="right">161.3</td>
+<td align="right">113.1</td>
+<td align="right">173.8</td>
+</tr>
+<tr class="even">
+<td align="left">Apr 2027</td>
+<td align="right">128.7</td>
+<td align="right">110.9</td>
+<td align="right">149.4</td>
+<td align="right">102.5</td>
+<td align="right">161.7</td>
+</tr>
+<tr class="odd">
+<td align="left">May 2027</td>
+<td align="right">136.1</td>
+<td align="right">116.3</td>
+<td align="right">159.3</td>
+<td align="right">107.0</td>
+<td align="right">173.1</td>
+</tr>
+<tr class="even">
+<td align="left">Jun 2027</td>
+<td align="right">137.0</td>
+<td align="right">116.2</td>
+<td align="right">161.6</td>
+<td align="right">106.5</td>
+<td align="right">176.4</td>
+</tr>
+<tr class="odd">
+<td align="left">Jul 2027</td>
+<td align="right">144.8</td>
+<td align="right">121.9</td>
+<td align="right">172.1</td>
+<td align="right">111.3</td>
+<td align="right">188.5</td>
+</tr>
+<tr class="even">
+<td align="left">Aug 2027</td>
+<td align="right">145.5</td>
+<td align="right">121.6</td>
+<td align="right">174.1</td>
+<td align="right">110.5</td>
+<td align="right">191.5</td>
+</tr>
+</tbody>
+</table>
+<p>El modelo espera que el índice siga creciendo. El pico de diciembre de 2026 queda alrededor de 181 y en agosto de 2027 el índice llegaría a cerca de 145, un 5 % más que en agosto de 2026. Los intervalos se abren a medida que el pronóstico se aleja, porque la incertidumbre se acumula mes a mes.</p>
+<p>El modelo supone que la tendencia y la estacionalidad de los últimos años se mantienen. Si llega un choque como el de 2020 o una desaceleración como la de 2023, el pronóstico no lo va a anticipar.</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="estacionariedad.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="conclusiones.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": null,
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": null,
+    "text": null
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": null,
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  }
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

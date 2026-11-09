@@ -1,0 +1,105 @@
+# Suavizamiento exponencial y Holt-Winters {#suavizamiento}
+
+A partir de este capítulo empieza la Unidad 4 y, con ella, los pronósticos. El promedio móvil del capítulo \@ref(promedio-movil) le da el mismo peso a todos los meses que promedia. El **suavizamiento exponencial** también promedia el pasado, pero da más peso a los meses recientes y cada vez menos a los antiguos.
+
+Hay tres versiones, y cada una agrega un componente de la serie:
+
+| Método | Qué sigue | Parámetro que lo controla |
+|:--|:--|:--|
+| Suavizamiento simple | Solo el nivel | $\alpha$ (nivel) |
+| Holt | Nivel y tendencia | $\alpha$ y $\beta$ (tendencia) |
+| Holt-Winters | Nivel, tendencia y estacionalidad | $\alpha$, $\beta$ y $\gamma$ (estacionalidad) |
+
+Los parámetros van de 0 a 1. Cerca de 1, el modelo se ajusta rápido a lo último que pasó. Cerca de 0, el componente casi no cambia en el tiempo. R los estima solo, buscando los valores que mejor reproducen la serie.
+
+Holt-Winters puede tratar la estacionalidad de dos formas. En la **aditiva**, el pico de diciembre suma siempre más o menos lo mismo. En la **multiplicativa**, el pico crece con el nivel de la serie. En el capítulo \@ref(transformacion) se vio que esta serie se comporta como el segundo caso. Por eso también se prueba Holt-Winters aditivo sobre el logaritmo, que equivale a una estacionalidad proporcional.
+
+## Procedimiento
+
+1. Separar la serie en un periodo de entrenamiento y uno de prueba.
+2. Ajustar los modelos con el periodo de entrenamiento y pronosticar el periodo de prueba.
+3. Comparar los pronósticos con los datos reales y elegir el modelo con menor error.
+4. Volver a ajustar el modelo elegido con toda la serie y pronosticar los siguientes 12 meses.
+
+## Entrenamiento y prueba
+
+Se guardan los últimos 12 meses (septiembre de 2025 a agosto de 2026) como prueba. Así la evaluación cubre un año completo, incluido diciembre, el mes más difícil de pronosticar.
+
+```{r particion}
+train <- window(y, end = c(2025, 8))
+test  <- window(y, start = c(2025, 9))
+h <- length(test)
+```
+
+## Modelos
+
+Se ajustan cinco modelos de suavizamiento. Como punto de comparación se agrega el modelo ingenuo estacional de la propuesta, que pronostica cada mes con el valor del mismo mes del año anterior.
+
+```{r modelos}
+modelos <- list(
+  "Simple"                  = ses(train, h = h),
+  "Holt"                    = holt(train, h = h),
+  "Holt-Winters aditivo"    = hw(train, h = h, seasonal = "additive"),
+  "Holt-Winters multiplic." = hw(train, h = h, seasonal = "multiplicative"),
+  "Holt-Winters sobre log"  = hw(train, h = h, seasonal = "additive", lambda = 0),
+  "Ingenuo estacional"      = snaive(train, h = h)
+)
+```
+
+## Comparación
+
+Cada pronóstico se compara con los datos reales de la prueba usando dos medidas de error: el RMSE, en puntos del índice, y el MAPE, que es el error promedio en porcentaje.
+
+```{r errores}
+errores <- t(sapply(modelos, function(m) accuracy(m, test)["Test set", c("RMSE", "MAPE")]))
+knitr::kable(errores[order(errores[, "RMSE"]), ], digits = 2,
+             caption = "Error de cada modelo en el periodo de prueba.")
+```
+
+```{r prueba, fig.cap="Pronósticos de los tres modelos Holt-Winters en el periodo de prueba."}
+autoplot(window(y, start = 2022), series = "Real") +
+  autolayer(modelos[["Holt-Winters aditivo"]]$mean, series = "HW aditivo") +
+  autolayer(modelos[["Holt-Winters multiplic."]]$mean, series = "HW multiplicativo") +
+  autolayer(modelos[["Holt-Winters sobre log"]]$mean, series = "HW sobre log") +
+  scale_colour_manual(values = c(Real = "black", "HW aditivo" = "orange",
+                                 "HW multiplicativo" = "steelblue", "HW sobre log" = "darkred")) +
+  labs(x = "Año", y = "Índice", colour = "")
+```
+
+La Tabla \@ref(tab:errores) muestra tres grupos:
+
+- **Simple y Holt** fallan por mucho (MAPE de 7,4 % y 6,2 %). No tienen estacionalidad, así que pronostican una línea casi recta y no ven el pico de diciembre.
+- **El ingenuo estacional** también queda lejos (8,7 %), porque repite el año anterior y no recoge el crecimiento de la serie.
+- **Los tres Holt-Winters** bajan el error a cerca del 3 %. La diferencia la hace la estacionalidad.
+
+El mejor es **Holt-Winters sobre el logaritmo**, con un MAPE de 2,45 %. En la Figura \@ref(fig:prueba) es el que mejor acierta el pico de diciembre de 2025. Los otros dos se quedan cortos. Los tres fallan de forma parecida entre abril y mayo de 2026, cuando las ventas subieron más de lo que mostraba su historia.
+
+## Modelo elegido
+
+Se vuelve a ajustar Holt-Winters sobre el logaritmo, ahora con toda la serie, y se pronostican los siguientes 12 meses:
+
+```{r final}
+final <- hw(y, h = 12, seasonal = "additive", lambda = 0)
+round(final$model$par[c("alpha", "beta", "gamma")], 3)
+```
+
+Los parámetros se leen así:
+
+- **$\alpha$ alto:** el nivel se ajusta rápido a los últimos meses.
+- **$\beta$ y $\gamma$ casi en cero:** el ritmo de crecimiento y el patrón de cada mes casi no cambian en el tiempo. Esto coincide con la descomposición del capítulo \@ref(descomposicion), que mostró una tendencia constante y una estacionalidad estable.
+
+## Pronóstico
+
+```{r pronostico, fig.cap="Pronóstico de septiembre de 2026 a agosto de 2027 con intervalos de 80 % y 95 %."}
+autoplot(final, include = 60) + labs(title = "", x = "Año", y = "Índice")
+```
+
+```{r tabla-pronostico}
+knitr::kable(as.data.frame(final), digits = 1,
+             col.names = c("Pronóstico", "Inf. 80 %", "Sup. 80 %", "Inf. 95 %", "Sup. 95 %"),
+             caption = "Pronóstico del índice de ventas reales (2019 = 100).")
+```
+
+El modelo espera que el índice siga creciendo. El pico de diciembre de 2026 queda alrededor de 181 y en agosto de 2027 el índice llegaría a cerca de 145, un 5 % más que en agosto de 2026. Los intervalos se abren a medida que el pronóstico se aleja, porque la incertidumbre se acumula mes a mes.
+
+El modelo supone que la tendencia y la estacionalidad de los últimos años se mantienen. Si llega un choque como el de 2020 o una desaceleración como la de 2023, el pronóstico no lo va a anticipar.

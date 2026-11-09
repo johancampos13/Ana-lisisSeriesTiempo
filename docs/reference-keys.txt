@@ -11,6 +11,10 @@ fig:stl
 fig:acf-d12
 fig:etapas
 fig:acf-dd
+tab:errores
+fig:prueba
+fig:pronostico
+tab:tabla-pronostico
 propuesta-unidad-1
 datos
 promedio-movil
@@ -31,4 +35,11 @@ paso-1-la-serie-en-logaritmos
 paso-2-diferencia-estacional
 paso-3-diferencia-regular
 resumen-del-procedimiento
+suavizamiento
+procedimiento
+entrenamiento-y-prueba
+modelos
+comparación
+modelo-elegido
+pronóstico
 conclusiones
